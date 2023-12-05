@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-import { filterByTag, filterByName, listRecipeIngredients } from '../src/recipes';
+import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost } from '../src/recipes';
 
 describe('Shared Variables For Testing Purposes:', () => {
-  let sampleIngredients, sampleRecipes, sampleUsers, sampleRecipe, function1Return, function2Return;
+  let ingredients, recipes, users, recipe1, recipe2, function1Return, function2Return;
   beforeEach(() => {
-    sampleIngredients = [
+    ingredients = [
       {
         "id": 1,
         "name": "strawberries",
@@ -31,10 +31,10 @@ describe('Shared Variables For Testing Purposes:', () => {
         "estimatedCostInCents": 250
       }
     ];
-    sampleRecipes = [
+    recipes = [
       {
         "id": 500,
-        "image": "https://imgs.search.brave.com/mRUfqqTWkkk4qddOmAY9EhRgWCo0Fem7pJrWsa6I7p0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAwLzgwLzU4LzQ4/LzM2MF9GXzgwNTg0/ODc3X2R2SFY0bnFL/eEVQYU50blhpZFpE/amlrRGR0aUNtQUJG/LmpwZw",
+        "image": "https://www.iheartnaptime.net/wp-content/uploads/2020/06/berry-fruit-salad.jpg",
         "ingredients": [
           {
             "id": 1,
@@ -124,7 +124,7 @@ describe('Shared Variables For Testing Purposes:', () => {
       },
       {
         "id": 700,
-        "image": "",
+        "image": "https://www.brightsideorganics.com/cdn/shop/articles/Vanilla_Ice_Cream_Strawberries.png?v=1656796505",
         "ingredients": [
           {
             "id": 1,
@@ -164,7 +164,7 @@ describe('Shared Variables For Testing Purposes:', () => {
         ]
       },
     ];
-    sampleUsers = [
+    users = [
       {
         "name": "Laura Long",
         "id": 1,
@@ -181,7 +181,7 @@ describe('Shared Variables For Testing Purposes:', () => {
         "recipesToCook": []
       }
     ];
-    sampleRecipe = {
+    recipe1 = {
       "id": 600,
       "image": "https://imgs.search.brave.com/Qt3vXLyaEP9ZcX_RC_Vn58VR0d0Y1slPiglu9cCRtT0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMwMS5ueXQuY29t/L2ltYWdlcy8yMDE5/LzA4LzEwL2Rpbmlu/Zy9hdy1zcGljeS13/YXRlcm1lbG9uLXNh/bGFkL2F3LXNwaWN5/LXdhdGVybWVsb24t/c2FsYWQtYXJ0aWNs/ZUxhcmdlLmpwZz93/PTEyODAmcT03NQ",
       "ingredients": [
@@ -224,10 +224,57 @@ describe('Shared Variables For Testing Purposes:', () => {
         "watermelon"
       ]
     };
+    recipe2 = {
+      "id": 500,
+      "image": "https://www.iheartnaptime.net/wp-content/uploads/2020/06/berry-fruit-salad.jpg",
+      "ingredients": [
+        {
+          "id": 1,
+          "quantity": {
+            "amount": 2,
+            "unit": "c"
+          }
+        },
+        {
+          "id": 2,
+          "quantity": {
+            "amount": 1.5,
+            "unit": "c"
+          }
+        },
+        ],
+      "instructions": [
+        {
+          "instruction": "Rinse the strawberries and blackberries.",
+          "number": 1
+        },
+        {
+          "instruction": "Add both berries to a large bowl",
+          "number": 2
+        },
+        {
+          "instruction": "Mix until evenly dispersed.",
+          "number": 3
+        },
+        {
+          "instruction": "Enjoy!",
+          "number": 4
+        }
+      ],
+      "name": "Berry Fruit Salad",
+      "tags": [
+        "fruit",
+        "salad",
+        "berry",
+        "healthy",
+        "strawberry",
+        "blackberry"
+      ]
+    };
     function1Return = [
       {
         "id": 500,
-        "image": "https://imgs.search.brave.com/mRUfqqTWkkk4qddOmAY9EhRgWCo0Fem7pJrWsa6I7p0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAwLzgwLzU4LzQ4/LzM2MF9GXzgwNTg0/ODc3X2R2SFY0bnFL/eEVQYU50blhpZFpE/amlrRGR0aUNtQUJG/LmpwZw",
+        "image": "https://www.iheartnaptime.net/wp-content/uploads/2020/06/berry-fruit-salad.jpg",
         "ingredients": [
           {
             "id": 1,
@@ -274,7 +321,7 @@ describe('Shared Variables For Testing Purposes:', () => {
       },
       {
         "id": 700,
-        "image": "",
+        "image": "https://www.brightsideorganics.com/cdn/shop/articles/Vanilla_Ice_Cream_Strawberries.png?v=1656796505",
         "ingredients": [
           {
             "id": 1,
@@ -317,7 +364,7 @@ describe('Shared Variables For Testing Purposes:', () => {
     function2Return = [
       {
         "id": 700,
-        "image": "",
+        "image": "https://www.brightsideorganics.com/cdn/shop/articles/Vanilla_Ice_Cream_Strawberries.png?v=1656796505",
         "ingredients": [
           {
             "id": 1,
@@ -374,7 +421,7 @@ describe('Shared Variables For Testing Purposes:', () => {
       const tag = 'strawberry'
       
       // EXECUTION:
-      const recipesByTag = filterByTag(sampleRecipes, tag);
+      const recipesByTag = filterByTag(recipes, tag);
 
       //ASSERTION:
       expect(recipesByTag).to.deep.equal(function1Return)
@@ -394,7 +441,7 @@ describe('Shared Variables For Testing Purposes:', () => {
       const name = 'Vanilla Icecream With Strawberries'
 
       // EXECUTION:
-      const recipesByName = filterByName(sampleRecipes, name);
+      const recipesByName = filterByName(recipes, name);
 
       //ASSERTION:
       expect(recipesByName).to.deep.equal(function2Return)
@@ -412,26 +459,28 @@ describe('Shared Variables For Testing Purposes:', () => {
         // SETUP
         
         // EXECUTION
-        const ingredients = listRecipeIngredients(sampleRecipe, sampleIngredients);
+        const neededIngredients = listRecipeIngredients(recipe1, ingredients);
 
         // ASSERTION
-        expect(ingredients).to.deep.equal(["watermelon", "pineapple"]);
+        expect(neededIngredients).to.deep.equal(["watermelon", "pineapple"]);
     });
   })
 
-  //===============================================================
+  // ===============================================================
   // Calculate the cost of a given recipe’s ingredients
-  // describe('', () => {
-  //   it('', () => {
-  //     expect().to.be.a('function');
-  //   });
+  describe('calculateRecipeCost', () => {
+    it('Should be a function', () => {
+      expect(calculateRecipeCost).to.be.a('function');
+    });
 
-  //   it('', () => {
-  //       // SETUP
-  //       // EXECUTION
-  //       // ASSERTION
-  //   });
-  // })
+    it("Should calculate the cost of a given recipe's ingredients", () => {
+        // SETUP
+        // EXECUTION
+        const totalCost = calculateRecipeCost(recipe2, ingredients)
+        // ASSERTION
+        expect(totalCost).to.equal(1250)
+    });
+  })
 
   //===============================================================
   // Return the directions / instructions for a given recipe
