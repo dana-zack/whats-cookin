@@ -425,8 +425,7 @@ describe('Shared Variables For Testing Purposes:', () => {
 
 
   //==============================================================================
-
-  // Return a filtered list of recipes based on a tag.
+  
   describe('filterByTag', () => {
     it('Should be a function', () => {
       expect(filterByTag).to.be.a('function');
@@ -441,7 +440,6 @@ describe('Shared Variables For Testing Purposes:', () => {
 
   //==============================================================================
 
-  // Return a filtered list of recipes based on a recipe name.
   describe('filterByName', () => {
     it('Should be a function', () => {
       expect(filterByName).to.be.a('function');
@@ -455,7 +453,7 @@ describe('Shared Variables For Testing Purposes:', () => {
   });
 
   //===============================================================
-  // Determine the names of ingredients needed for a given recipe
+
   describe('listRecipeIngredients', () => {
     it('Should be a function', () => {
       expect(listRecipeIngredients).to.be.a('function');
@@ -469,7 +467,7 @@ describe('Shared Variables For Testing Purposes:', () => {
   })
 
   // ===============================================================
-  // Calculate the cost of a given recipe’s ingredients
+
   describe('calculateRecipeCost', () => {
     it('Should be a function', () => {
       expect(calculateRecipeCost).to.be.a('function');
@@ -483,7 +481,7 @@ describe('Shared Variables For Testing Purposes:', () => {
   })
 
   // ===============================================================
-  // Return the directions / instructions for a given recipe
+
   describe('getInstructions', () => {
     it('Should be a function', () => {
       expect(getInstructions).to.be.a('function');

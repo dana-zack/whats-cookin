@@ -53,8 +53,8 @@ function calculateRecipeCost(recipe, ingredients) {
   return totalCost;
 };
 
-function getInstructions() {
-
+function getInstructions(recipe) {
+  return recipe.instructions;
 }
 
 module.exports = {
