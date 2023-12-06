@@ -1,11 +1,10 @@
 import { expect } from 'chai';
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from '../src/recipes';
 
+
 describe('Shared Variables For Testing Purposes:', () => {
-  let tag, name, ingredients, recipes, users, recipe1, recipe2, function1Return, function2Return, instructions1;
+  let ingredients, recipes, recipe1, recipe2, recipesWithStrawberries, icecreamRecipe, instructions1;
   beforeEach(() => {
-    tag = 'strawberry';
-    name = 'Vanilla Icecream With Strawberries';
     ingredients = [
       {
         "id": 1,
@@ -166,23 +165,6 @@ describe('Shared Variables For Testing Purposes:', () => {
         ]
       },
     ];
-    users = [
-      {
-        "name": "Laura Long",
-        "id": 1,
-        "recipesToCook": []
-      },
-      {
-        "name": "Eric Kendrick",
-        "id": 2,
-        "recipesToCook": []
-      },
-      {
-        "name": "Dana Zack",
-        "id": 3,
-        "recipesToCook": []
-      }
-    ];
     recipe1 = {
       "id": 600,
       "image": "https://imgs.search.brave.com/Qt3vXLyaEP9ZcX_RC_Vn58VR0d0Y1slPiglu9cCRtT0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMwMS5ueXQuY29t/L2ltYWdlcy8yMDE5/LzA4LzEwL2Rpbmlu/Zy9hdy1zcGljeS13/YXRlcm1lbG9uLXNh/bGFkL2F3LXNwaWN5/LXdhdGVybWVsb24t/c2FsYWQtYXJ0aWNs/ZUxhcmdlLmpwZz93/PTEyODAmcT03NQ",
@@ -273,7 +255,7 @@ describe('Shared Variables For Testing Purposes:', () => {
         "blackberry"
       ]
     };
-    function1Return = [
+    recipesWithStrawberries = [
       {
         "id": 500,
         "image": "https://www.iheartnaptime.net/wp-content/uploads/2020/06/berry-fruit-salad.jpg",
@@ -363,7 +345,7 @@ describe('Shared Variables For Testing Purposes:', () => {
         ]
       },
     ];
-    function2Return = [
+    icecreamRecipe = [
       {
         "id": 700,
         "image": "https://www.brightsideorganics.com/cdn/shop/articles/Vanilla_Ice_Cream_Strawberries.png?v=1656796505",
@@ -422,8 +404,7 @@ describe('Shared Variables For Testing Purposes:', () => {
     ];
   });
 
-
-
+  //==============================================================================
   //==============================================================================
   
   describe('filterByTag', () => {
@@ -432,28 +413,44 @@ describe('Shared Variables For Testing Purposes:', () => {
     });
 
     it('Should return a filtered list of recipes based on a tag', () => {
-      const recipesByTag = filterByTag(recipes, tag);
+      const recipesByTag = filterByTag(recipes, "strawberry");
+      expect(recipesByTag).to.deep.equal(recipesWithStrawberries);
+    });
 
-      expect(recipesByTag).to.deep.equal(function1Return)
+    it('Should return an empty array if no recipes match the tag', () => {
+      const recipesByTag = filterByTag(recipes, "blueberry");
+      expect(recipesByTag).to.deep.equal([]);
+    });
+
+    it('Should return an empty array if no tag is provided', () => {
+      const recipesByTag = filterByTag(recipes);
+      expect(recipesByTag).to.deep.equal([]);
     });
   });
 
   //==============================================================================
-
   describe('filterByName', () => {
     it('Should be a function', () => {
       expect(filterByName).to.be.a('function');
     });
 
     it('Should return a filtered list of recipes based on a name', () => {
-      const recipesByName = filterByName(recipes, name);
+      const recipesByName = filterByName(recipes, "Vanilla Icecream With Strawberries");
+      expect(recipesByName).to.deep.equal(icecreamRecipe);
+    });
 
-      expect(recipesByName).to.deep.equal(function2Return)
+    it('Should return an empty array if no recipes match the name', () => {
+      const recipesByName = filterByName(recipes, "Shortcake");
+      expect(recipesByName).to.deep.equal([]);
+    });
+
+    it('Should return an empty array if no name is provided', () => {
+      const recipesByName = filterByName(recipes);
+      expect(recipesByName).to.deep.equal([]);
     });
   });
 
   //===============================================================
-
   describe('listRecipeIngredients', () => {
     it('Should be a function', () => {
       expect(listRecipeIngredients).to.be.a('function');
@@ -461,27 +458,23 @@ describe('Shared Variables For Testing Purposes:', () => {
 
     it('Should determine the names of ingredients needed for a given recipe', () => {
         const neededIngredients = listRecipeIngredients(recipe1, ingredients);
-
         expect(neededIngredients).to.deep.equal(["watermelon", "pineapple"]);
     });
   })
 
   // ===============================================================
-
   describe('calculateRecipeCost', () => {
     it('Should be a function', () => {
       expect(calculateRecipeCost).to.be.a('function');
     });
 
     it("Should calculate the cost of a given recipe's ingredients", () => {
-        const totalCost = calculateRecipeCost(recipe2, ingredients)
-
-        expect(totalCost).to.equal(1250)
+        const totalCost = calculateRecipeCost(recipe2, ingredients);
+        expect(totalCost).to.equal('12.50');
     });
   })
 
   // ===============================================================
-
   describe('getInstructions', () => {
     it('Should be a function', () => {
       expect(getInstructions).to.be.a('function');
@@ -489,8 +482,7 @@ describe('Shared Variables For Testing Purposes:', () => {
 
     it('Should return the instructions for a given recipe', () => {
         const instructions = getInstructions(recipe1);
-
-        expect(instructions).to.deep.equal(instructions1)
+        expect(instructions).to.deep.equal(instructions1);
     });
   })
 });

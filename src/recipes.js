@@ -27,30 +27,18 @@ function listRecipeIngredients(sampleRecipe, sampleIngredients) {
   return ingredientNames;
 };
 
-//PSEUDOCODE
-//recipe is an object
-//ingredients is an array of all ingredients
-//first, need to look through recipe and determine which ingredients are needed
-//then need to look at those specific ingredients within the ingredients array to determine cost
-//then need to multiple that cost by the recipe ingredient's quantity
-
 function calculateRecipeCost(recipe, ingredients) {
-  const requiredIngredientIds = recipe.ingredients.map(ingredient => ingredient.id)
-  console.log(requiredIngredientIds);
-  const requiredIngredientData = ingredients.filter(ingredient => requiredIngredientIds.includes(ingredient.id))
-  console.log(requiredIngredientData);
+  const requiredIngredientIds = recipe.ingredients.map(ingredient => ingredient.id);
+  const requiredIngredientData = ingredients.filter(ingredient => requiredIngredientIds.includes(ingredient.id));
 
   const totalCost = requiredIngredientData.reduce((cost, ingredient) => {
     const data = recipe.ingredients.find(item => {
       return item.id === ingredient.id;
     })
-    console.log(data)
     cost += (ingredient.estimatedCostInCents * data.quantity.amount);
-    console.log(cost)
     return cost;
   }, 0)
-  console.log(totalCost)
-  return totalCost;
+  return (totalCost/100).toFixed(2);
 };
 
 function getInstructions(recipe) {
