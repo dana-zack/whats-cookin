@@ -35,15 +35,13 @@ function listRecipeIngredients(sampleRecipe, sampleIngredients) {
 //then need to multiple that cost by the recipe ingredient's quantity
 
 function calculateRecipeCost(recipe, ingredients) {
-  const requiredIngredients = recipe.ingredients.map(ingredient => ingredient)
-  console.log(requiredIngredients);
   const requiredIngredientIds = recipe.ingredients.map(ingredient => ingredient.id)
   console.log(requiredIngredientIds);
   const requiredIngredientData = ingredients.filter(ingredient => requiredIngredientIds.includes(ingredient.id))
   console.log(requiredIngredientData);
 
   const totalCost = requiredIngredientData.reduce((cost, ingredient) => {
-    const data = requiredIngredients.find(item => {
+    const data = recipe.ingredients.find(item => {
       return item.id === ingredient.id;
     })
     console.log(data)
@@ -55,9 +53,14 @@ function calculateRecipeCost(recipe, ingredients) {
   return totalCost;
 };
 
+function getInstructions() {
+
+}
+
 module.exports = {
   filterByTag,
   filterByName,
   listRecipeIngredients,
-  calculateRecipeCost
+  calculateRecipeCost,
+  getInstructions
 };
