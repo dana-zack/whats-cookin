@@ -18,24 +18,41 @@
       <button class="nav-bar-button" id="favorite-recipes-button">Favorite Recipes</button>
       <button class="nav-bar-button" id="my-pantry-button">My Pantry</button>
     </section>
-    <section class="recipe-card-container">
-      <article class="recipe-card">
-        <h2>Recipe 1</h2>
-        <img class="recipe-image" src="https://spoonacular.com/recipeImages/595736-556x370.jpg" alt="Loaded Chocolate Chip Pudding Cookie Cups">
-        <p class="recipe-content">45 min cook time</p>
+    <div class="all-recipes-page main-page">
+      <section class="recipe-card-section">
+        <article class="recipe-card">
+          <h2>Recipe 1</h2>
+          <img class="recipe-image" src="https://spoonacular.com/recipeImages/595736-556x370.jpg" alt="Loaded Chocolate Chip Pudding Cookie Cups">
+          <p class="recipe-content">45 min cook time</p>
+        </article>
+        <article class="recipe-card">
+          <h2>Recipe 2</h2>
+          <img class="recipe-image" src="https://spoonacular.com/recipeImages/678353-556x370.jpg" alt="Maple Dijon Apple Cider Grilled Pork Chops">
+          <p class="recipe-content">30 min cook time</p>
+        </article>
+        <article class="recipe-card">
+          <h2>Recipe 3</h2>
+          <img class ="recipe-image" src="https://spoonacular.com/recipeImages/412309-556x370.jpeg" alt="Dirty Steve's Original Wing Sauce">
+          <p class="recipe-content">15 min cook time</p>
+        </article>
+      </section>
+    </div>
+    <!-- INSERT MODAL -->
+    <div id="recipe-modal" class="modal hidden">
+      <article class="recipe-modal-section">
+        <header>
+          <h1>Recipe Name</h1>
+          <button id="favorite-button">♥️</button>
+          <button class="close-button" aria-label="Close alert" type="button">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </header>
+        <h3>Ingredients</h3>
+        <h3>Instructions</h3>
       </article>
-      <article class="recipe-card">
-        <h2>Recipe 2</h2>
-        <img class="recipe-image" src="https://spoonacular.com/recipeImages/678353-556x370.jpg" alt="Maple Dijon Apple Cider Grilled Pork Chops">
-        <p class="recipe-content">30 min cook time</p>
-      </article>
-      <article class="recipe-card">
-        <h2>Recipe 3</h2>
-        <img class ="recipe-image" src="https://spoonacular.com/recipeImages/412309-556x370.jpeg" alt="Dirty Steve's Original Wing Sauce">
-        <p class="recipe-content">15 min cook time</p>
-      </article>
-    </section>
-  </body>
-  <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
-  <script src="bundle.js"></script>
+    </div>
+    <!-- END MODAL -->
+    </body>
+    <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
+    <script src="bundle.js"></script>
 </html>

@@ -66,7 +66,7 @@ h1 {
 
 /* RECIPE CONTAINER */
 
-.recipe-card-container {
+.all-recipes-page {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -102,3 +102,7 @@ h2 {
 }
 
 
+/* MISC STYLES */
+.hidden {
+  display: none
+}
