@@ -1,6 +1,12 @@
 body {
-  /* background-color: blueviolet; */
-}
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 300;
+ }
+ 
+ h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+ }
 
 /* HEADER */
 
@@ -15,7 +21,6 @@ h1 {
   font-size: 40px;
   padding: 5px;
   margin: 0px;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 .search-bar {
@@ -33,6 +38,8 @@ h1 {
 }
 
 #search-button {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
   height: 35px;
   width: 100px;
   border-radius: 8px;
@@ -48,15 +55,20 @@ h1 {
 /* NAVIGATION BAR */
 
 .nav-bar {
-  border: 1px solid black;
   padding: 10px;
   display: flex;
   justify-content: space-around;
 }
 
 .nav-bar-button {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
   border: none;
+  padding: 10px;
   background: none;
+  box-shadow: 4px 4px 0 2px;
+  border: 2px solid #000;
+  border-radius: 1rem;
 }
 
 .nav-bar-button:hover {
@@ -66,17 +78,24 @@ h1 {
 
 /* RECIPE CONTAINER */
 
-.all-recipes-page {
+.main-page {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 50px;
+
+}
+
+.recipe-card-section{
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: space-around;
+  margin: 20px;
+  width: 100%;
 }
 
 .recipe-card {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 30%;
   box-shadow: 4px 4px 0 2px;
   border: 2px solid #000;
   border-radius: 1rem;
@@ -88,12 +107,13 @@ h1 {
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 1em;
   margin: 10px;
 }
 
 .recipe-image {
-  width: 300px;
+  width: 60%;
+  height: 60%;
   padding: 0 1em;
 }
 
@@ -101,6 +121,43 @@ h2 {
   font-size: 20px;
 }
 
+/* MODAL */
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 4px 4px 0 2px;
+  border: 2px solid #000;
+  border-radius: 1rem;
+}
+
+.fav-close {
+  display: flex;
+  align-items: flex-start;
+  border: 1px;
+}
+/* 
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1;
+}
+
+.modal-overlay {
+  position: absolute;
+} */
 
 /* MISC STYLES */
 .hidden {
