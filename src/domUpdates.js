@@ -18,10 +18,8 @@ const closeButton = document.querySelector('.close-button');
 const toCookButton = document.getElementById('to-cook-button');
 const allRecipesButton = document.getElementById('all-recipes-button');
 const favoriteRecipesButton = document.getElementById('favorite-recipes-button');
-const myPantryButton = document.getElementById('my-pantry-button');
 const searchButton = document.getElementById('search-button');
 const searchBarInput = document.querySelector('.search-input');
-const dinnerTag = document.getElementById('dinner');
 const dropDown = document.querySelector('.drop-down-content');
 
 
@@ -38,29 +36,18 @@ closeButton.addEventListener('click', (event) => {
 })
 
 allRecipesButton.addEventListener('click', (event) => {
-  displayRecipeCards()
-})
-
-searchBarInput.addEventListener('click', (event) => {
-  filterRecipes()
+  displayRecipeCards(recipeData)
 })
 
 searchButton.addEventListener('click', (event) => {
-  filterRecipes()
+  displayRecipesByName(recipeData, searchBarInput.value)
 })
 
-dinnerTag.addEventListener('click', (event) => {
-  displayRecipesByTag(recipeData, "dinner")
+dropDown.addEventListener('click', (event) => {
+  const clickedTag = event.target.id
+  displayRecipesByTag(recipeData, clickedTag.replace("-", " "))
   console.log('yes!')
 })
-
-// dropDown.addEventListener('click', (event) => {
-//   const clickedTag = 
-//   if(event.target.contains){
-//     displayRecipesByTag(recipeData, "")
-//     console.log('yes!')
-//   }
-// })
 
 // Functions
 function onLoad() {
@@ -140,8 +127,28 @@ function displayModal(recipes) {
   recipeModal.classList.remove('hidden')
 }
 
+
+
+
+
+
+
 //==============================================================================================
 // As a user, I should be able to filter recipes by a tag. (Extension option: by multiple tags)
+function displayRecipesByTag(recipes, tag) {
+  const taggedRecipes = filterByTag(recipes, tag)
+  displayRecipeCards(taggedRecipes)
+}
+
+//==============================================================================================
+// As a user, I should be able to search recipes by their name. (Extension option: by name or ingredients)
+function displayRecipesByName(recipes, name) {
+  const namedRecipes = filterByName(recipes, name)
+  displayRecipeCards(namedRecipes)
+}
+
+//==============================================================================================
+// As a user, I should be able to filter recipes by a tag and/or name. 
 // get the input value from the search bar that the user inputs
 // query select the search btn and the search bar to get the input
 // pass the input thru the functions
@@ -158,18 +165,11 @@ function displayModal(recipes) {
 //join these two variables into one array and store that into a new variable (.concat())
 //then run this new joined variable through the displayRecipeCards function in order to display the filtered recipes only
 
-function displayRecipesByTag(recipes, tag) {
-  const taggedRecipes = filterByTag(recipes, tag)
-  displayRecipeCards(taggedRecipes)
-}
-
-//==============================================================================================
-// As a user, I should be able to search recipes by their name. (Extension option: by name or ingredients)
-
 
 export {
   displayModal,
   displayRecipeCards,
   onLoad,
-  displayRecipesByTag
+  displayRecipesByTag,
+  displayRecipesByName
 }
