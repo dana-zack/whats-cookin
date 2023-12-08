@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:900|Work+Sans:300" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Whats Cookin</title>
   </head>
@@ -13,42 +14,50 @@
       </div>
     </header>
     <section class="nav-bar">
-      <button class="nav-bar-button" id="to-cook-button">To Cook</button>
+      <div class="drop-down-button">
+        <button class="nav-bar-button" id="filter-by-button">Filter by 
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="drop-down-content">
+          <a href="#" id="dinner">dinner</a>
+          <a href="#" id="lunch">lunch</a>
+          <a href="#" id="snack">snack</a>
+          <a href="#" id="starter">starter</a>
+          <a href="#" id="appetizer">appetizer</a>
+          <a href="#" id="hor-d'oeuvre">hor d'oeuvre</a>
+          <a href="#" id="antipasto">antipasto</a>
+          <a href="#" id="side-dish">side dish</a>
+          <a href="#" id="main-course">main course</a>
+          <a href="#" id="main-dish">main dish</a>
+          <a href="#" id="spread">spread</a>
+          <a href="#" id="dip">dip</a>
+        </div>
+      </div> 
       <button class="nav-bar-button" id="all-recipes-button">All Recipes</button>
+      <button class="nav-bar-button" id="to-cook-button">To Cook</button>
       <button class="nav-bar-button" id="favorite-recipes-button">Favorite Recipes</button>
       <button class="nav-bar-button" id="my-pantry-button">My Pantry</button>
     </section>
-    <div class="all-recipes-page main-page">
+    <section class="main-page" id="all-recipes-section">
       <section class="recipe-card-section">
-        <article class="recipe-card">
-          <h2>Recipe 1</h2>
-          <img class="recipe-image" src="https://spoonacular.com/recipeImages/595736-556x370.jpg" alt="Loaded Chocolate Chip Pudding Cookie Cups">
-          <p class="recipe-content">45 min cook time</p>
-        </article>
-        <article class="recipe-card">
-          <h2>Recipe 2</h2>
-          <img class="recipe-image" src="https://spoonacular.com/recipeImages/678353-556x370.jpg" alt="Maple Dijon Apple Cider Grilled Pork Chops">
-          <p class="recipe-content">30 min cook time</p>
-        </article>
-        <article class="recipe-card">
-          <h2>Recipe 3</h2>
-          <img class ="recipe-image" src="https://spoonacular.com/recipeImages/412309-556x370.jpeg" alt="Dirty Steve's Original Wing Sauce">
-          <p class="recipe-content">15 min cook time</p>
-        </article>
+        
       </section>
-    </div>
+    </section>
     <!-- INSERT MODAL -->
     <div id="recipe-modal" class="modal hidden">
       <article class="recipe-modal-section">
         <header>
-          <h1>Recipe Name</h1>
-          <button id="favorite-button">♥️</button>
-          <button class="close-button" aria-label="Close alert" type="button">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h1 class="recipe-title">Recipe Name</h1>
+          <div id="fav-close" class="fav-close">
+            <button id="favorite-button">♥️</button>
+            <button class="close-button" aria-label="Close alert" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
         </header>
         <h3>Ingredients</h3>
         <h3>Instructions</h3>
+        <h3>Total Cost</h3>
       </article>
     </div>
     <!-- END MODAL -->
