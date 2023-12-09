@@ -14,6 +14,7 @@ import ingredientsData from "./data/ingredients.js";
 
 // Selectors
 const recipeCardSection = document.querySelector('.recipe-card-section');
+const overlay = document.getElementById('overlay')
 const recipeModal = document.getElementById('recipe-modal')
 const closeButton = document.querySelector('.close-button');
 const favoriteRecipesButton = document.getElementById('favorite-recipes-button');
@@ -35,6 +36,7 @@ recipeCardSection.addEventListener('click', (event) => {
 
 closeButton.addEventListener('click', (event) => {
   recipeModal.classList.add('hidden');
+  overlay.style.display = 'none';
 })
 
 allRecipesButton.addEventListener('click', (event) => {
@@ -108,8 +110,6 @@ function displayModal(recipe) {
   const clickedRecipe = recipeData.find(data => {
     return data.name === recipe.querySelector('h2').textContent
   });
-
-  // const { name, img, instructions } = clickedRecipe
   recipeTitle.innerText = clickedRecipe.name;
 
   const clickedRecipeIngrediens = listRecipeIngredients(clickedRecipe, ingredientsData).join('<br>')
@@ -119,13 +119,13 @@ function displayModal(recipe) {
   const newInstructions = clickedRecipeInstructions.map(step => {
     return `${step.number}. ${step.instruction}`;
   }).join('<br><br>');
-
   instructionsList.innerHTML = newInstructions;
 
   const clickedRecipeCost = calculateRecipeCost(clickedRecipe, ingredientsData)
   totalCost.innerText = clickedRecipeCost
 
   recipeModal.classList.remove('hidden');
+  overlay.style.display = 'block';
 }
 
 
@@ -142,25 +142,6 @@ function displayRecipesByName(recipes, name) {
   const namedRecipes = filterByName(recipes, name)
   displayRecipeCards(namedRecipes)
 }
-
-//==============================================================================================
-// As a user, I should be able to filter recipes by a tag and/or name. 
-// get the input value from the search bar that the user inputs
-// query select the search btn and the search bar to get the input
-// pass the input thru the functions
-// ? one DOM function that invokes the filterByTag and filterByName data model functions when the user hits “search”?
-
-
-// function filterRecipes(recipes, userInput) {
-  // const tagRecipes = filterByTag(recipes, userInput)
-  // const nameRecipes = filterByName(recipes, userInput)
-  // const combinedfilteredRecipes = do concat here with tagRecipes and nameRecipes
-  // displayRecipeCards(combinedfilteredRecipes)
-// }
-//store each data model function ouput into a variable (this variable will store the returned array)
-//join these two variables into one array and store that into a new variable (.concat())
-//then run this new joined variable through the displayRecipeCards function in order to display the filtered recipes only
-
 
 export {
   displayModal,
