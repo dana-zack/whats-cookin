@@ -15,12 +15,13 @@ import recipeData from "./data/recipes.js";
 const recipeCardSection = document.querySelector('.recipe-card-section');
 const recipeModal = document.getElementById('recipe-modal')
 const closeButton = document.querySelector('.close-button');
-const toCookButton = document.getElementById('to-cook-button');
-const allRecipesButton = document.getElementById('all-recipes-button');
 const favoriteRecipesButton = document.getElementById('favorite-recipes-button');
+const allRecipesButton = document.getElementById('all-recipes-button');
+const addRecipesButton = document.getElementById('favorite-recipes-button');
 const searchButton = document.getElementById('search-button');
 const searchBarInput = document.querySelector('.search-input');
-const dropDown = document.querySelector('.drop-down-content');
+const dropDown = document.getElementById('tag-selector');
+const tagSelectorButton = document.querySelector('.tag-selector-button')
 
 
 
@@ -37,21 +38,33 @@ closeButton.addEventListener('click', (event) => {
 
 allRecipesButton.addEventListener('click', (event) => {
   displayRecipeCards(recipeData)
+  searchBarInput.placeholder = "Search 'all recipes' by name..."
+})
+
+favoriteRecipesButton.addEventListener('click',(event) => {
+  // displayRecipeCards(favoriteRecipes)
+  searchBarInput.placeholder = "Search 'favorite recipes' by name..."
+})
+
+addRecipesButton.addEventListener('click', (event) => {
+  //push event.target into favoriteRecipes array
 })
 
 searchButton.addEventListener('click', (event) => {
   displayRecipesByName(recipeData, searchBarInput.value)
+  searchBarInput.value = "";
 })
 
-dropDown.addEventListener('click', (event) => {
-  const clickedTag = event.target.id
-  displayRecipesByTag(recipeData, clickedTag.replace("-", " "))
+tagSelectorButton.addEventListener('click', (event) => {
+  const clickedTag = dropDown.value
+  displayRecipesByTag(recipeData, clickedTag)
   console.log('yes!')
 })
 
 // Functions
 function onLoad() {
   displayRecipeCards(recipeData)
+  searchBarInput.placeholder = "Search 'all recipes' by name"
 };
 
 function displayRecipeCards(recipes) {
