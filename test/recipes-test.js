@@ -482,7 +482,7 @@ describe('Shared Variables For Testing Purposes:', () => {
 
     it("Should calculate the cost of a given recipe's ingredients", () => {
         const totalCost = calculateRecipeCost(recipe2, ingredients);
-        expect(totalCost).to.equal('12.50');
+        expect(totalCost).to.equal('$12.50');
     });
   })
 

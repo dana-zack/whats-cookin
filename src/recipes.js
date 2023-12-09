@@ -38,7 +38,8 @@ function calculateRecipeCost(recipe, ingredients) {
     cost += (ingredient.estimatedCostInCents * data.quantity.amount);
     return cost;
   }, 0)
-  return (totalCost/100).toFixed(2);
+  const avgCost = (totalCost/100).toFixed(2)
+  return `$${avgCost}`;
 };
 
 function getInstructions(recipe) {
