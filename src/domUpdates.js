@@ -27,26 +27,6 @@ const tagSelectorButton = document.querySelector('.tag-selector-button')
 const webPageTitle = document.querySelector('.web-page-title')
 
 // Event listeners
-// recipeCardSection.addEventListener('click', (event) => {
-//   if (event.target.classList.contains('recipe-card')) {
-//     displayModal(event.target);
-//   }
-// });
-
-// recipeCardSection.addEventListener('click', (event) => {
-//   selectedRecipe = event.target.closest('article');
-//   console.log(selectedRecipe)
-//   let selectedRecipeID = Number(selectedRecipe.querySelector('.recipe-id').textContent)
-//   console.log(selectedRecipeID)
-//   recipeData.forEach(recipe => {
-//     if (selectedRecipeID === recipe.id) {
-//       currentRecipe = recipe;
-//     }
-//   })
-//   console.log(currentRecipe);
-//   displayModal(currentRecipe);
-// });
-
 recipeCardSection.addEventListener('click', (event) => {
   selectedRecipe = event.target.closest('article');
   console.log(selectedRecipe)
