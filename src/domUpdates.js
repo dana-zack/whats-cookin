@@ -6,7 +6,6 @@ import recipeData from "./data/recipes.js";
 import ingredientsData from "./data/ingredients.js";
 import usersData from "./data/users.js";
 
-
 // Variables
 var currentRecipes;
 
@@ -21,6 +20,7 @@ const searchButton = document.getElementById('search-button');
 const searchBarInput = document.querySelector('.search-input');
 const dropDown = document.getElementById('tag-selector');
 const tagSelectorButton = document.querySelector('.tag-selector-button')
+const webPageTitle = document.querySelector('.web-page-title')
 
 // Event listeners
 recipeCardSection.addEventListener('click', (event) => {
@@ -67,11 +67,11 @@ tagSelectorButton.addEventListener('click', (event) => {
 // Functions
 function onLoad() {
   displayRecipeCards(recipeData)
+  let currentUser = getRandomUser(usersData)
+  console.log(currentUser)
+  webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
   searchBarInput.placeholder = "Search 'all recipes' by name"
-
 };
-
-
 
 function displayRecipeCards(recipes) {
   recipeCardSection.innerHTML = '';
