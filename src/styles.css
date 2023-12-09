@@ -33,7 +33,7 @@ h1 {
 .search-input {
   width: 450px;
   height: 35px;
-  border: 1px solid black;
+  border: 1.5px solid black;
   border-radius: 8px;
 }
 
@@ -43,7 +43,7 @@ h1 {
   height: 35px;
   width: 100px;
   border-radius: 8px;
-  border: 1px solid black;
+  border: 1.5px solid black;
 }
 
 #search-button:hover {
@@ -63,23 +63,40 @@ h1 {
 .nav-bar-button {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
+  font-size: 20px;
   border: none;
-  padding: 10px;
+  padding: 10px 250px;
   background: none;
-  box-shadow: 4px 4px 0 2px;
   border: 2px solid #000;
   border-radius: 1rem;
+  background-color: grey;
 }
 
 .nav-bar-button:hover {
-  transform: scale(1.15);
+  transform: scale(1.02);
   cursor: pointer;
+}
+
+#all-recipes-button {
+  background-color: grey;
+}
+
+#favorite-recipes-button {
+  background-color: white;
 }
 
 /* FILTER BY DROPDOWN */
 
-.drop-down-button {
-  /* float: left; */
+.drop-down-menu {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.drop-down-menu-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 400px;
 }
 
 .drop-down-content {
@@ -87,25 +104,18 @@ h1 {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 120px;
-  /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
-  /* z-index: 1; */
 }
 
-.drop-down-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
+#tag-selector {
+  width: 150px;
+  margin: 0 10px;
+  border-radius: 5px;
+  border: solid 1.5px black;
 }
 
-.drop-down-content a:hover {
-  background-color: #ddd;
-}
-
-.drop-down-button:hover .drop-down-content {
-  display: block;
+#tag-selector-button {
+  border-radius: 5px;
+  border: solid 1.5px black;
 }
 
 /* RECIPE CONTAINER */

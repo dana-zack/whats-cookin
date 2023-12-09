@@ -15,14 +15,13 @@ import recipeData from "./data/recipes.js";
 const recipeCardSection = document.querySelector('.recipe-card-section');
 const recipeModal = document.getElementById('recipe-modal')
 const closeButton = document.querySelector('.close-button');
-const toCookButton = document.getElementById('to-cook-button');
-const allRecipesButton = document.getElementById('all-recipes-button');
 const favoriteRecipesButton = document.getElementById('favorite-recipes-button');
-const myPantryButton = document.getElementById('my-pantry-button');
+const allRecipesButton = document.getElementById('all-recipes-button');
+const addRecipesButton = document.getElementById('favorite-recipes-button');
 const searchButton = document.getElementById('search-button');
 const searchBarInput = document.querySelector('.search-input');
-const dinnerTag = document.getElementById('dinner');
-const dropDown = document.querySelector('.drop-down-content');
+const dropDown = document.getElementById('tag-selector');
+const tagSelectorButton = document.querySelector('.tag-selector-button')
 
 
 
@@ -38,33 +37,38 @@ closeButton.addEventListener('click', (event) => {
 })
 
 allRecipesButton.addEventListener('click', (event) => {
-  displayRecipeCards()
+  displayRecipeCards(recipeData)
+  searchBarInput.placeholder = "Search 'all recipes' by name..."
+  allRecipesButton.style.backgroundColor = "grey";
+  favoriteRecipesButton.style.backgroundColor = "white";
 })
 
-searchBarInput.addEventListener('click', (event) => {
-  filterRecipes()
+favoriteRecipesButton.addEventListener('click', (event) => {
+  // displayRecipeCards(favoriteRecipes)
+  searchBarInput.placeholder = "Search 'favorite recipes' by name..."
+  allRecipesButton.style.backgroundColor = "white";
+  favoriteRecipesButton.style.backgroundColor = "grey";
+})
+
+addRecipesButton.addEventListener('click', (event) => {
+  //push event.target into favoriteRecipes array
 })
 
 searchButton.addEventListener('click', (event) => {
-  filterRecipes()
+  displayRecipesByName(recipeData, searchBarInput.value)
+  searchBarInput.value = "";
 })
 
-dinnerTag.addEventListener('click', (event) => {
-  displayRecipesByTag(recipeData, "dinner")
+tagSelectorButton.addEventListener('click', (event) => {
+  const clickedTag = dropDown.value
+  displayRecipesByTag(recipeData, clickedTag)
   console.log('yes!')
 })
-
-// dropDown.addEventListener('click', (event) => {
-//   const clickedTag = 
-//   if(event.target.contains){
-//     displayRecipesByTag(recipeData, "")
-//     console.log('yes!')
-//   }
-// })
 
 // Functions
 function onLoad() {
   displayRecipeCards(recipeData)
+  searchBarInput.placeholder = "Search 'all recipes' by name"
 };
 
 function displayRecipeCards(recipes) {
@@ -140,8 +144,28 @@ function displayModal(recipes) {
   recipeModal.classList.remove('hidden')
 }
 
+
+
+
+
+
+
 //==============================================================================================
 // As a user, I should be able to filter recipes by a tag. (Extension option: by multiple tags)
+function displayRecipesByTag(recipes, tag) {
+  const taggedRecipes = filterByTag(recipes, tag)
+  displayRecipeCards(taggedRecipes)
+}
+
+//==============================================================================================
+// As a user, I should be able to search recipes by their name. (Extension option: by name or ingredients)
+function displayRecipesByName(recipes, name) {
+  const namedRecipes = filterByName(recipes, name)
+  displayRecipeCards(namedRecipes)
+}
+
+//==============================================================================================
+// As a user, I should be able to filter recipes by a tag and/or name. 
 // get the input value from the search bar that the user inputs
 // query select the search btn and the search bar to get the input
 // pass the input thru the functions
@@ -158,18 +182,11 @@ function displayModal(recipes) {
 //join these two variables into one array and store that into a new variable (.concat())
 //then run this new joined variable through the displayRecipeCards function in order to display the filtered recipes only
 
-function displayRecipesByTag(recipes, tag) {
-  const taggedRecipes = filterByTag(recipes, tag)
-  displayRecipeCards(taggedRecipes)
-}
-
-//==============================================================================================
-// As a user, I should be able to search recipes by their name. (Extension option: by name or ingredients)
-
 
 export {
   displayModal,
   displayRecipeCards,
   onLoad,
-  displayRecipesByTag
+  displayRecipesByTag,
+  displayRecipesByName
 }
