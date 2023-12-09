@@ -1,16 +1,12 @@
 //NOTE: Your DOM manipulation will occur in this file
-import {
-  filterByTag,
-  filterByName,
-  listRecipeIngredients,
-  calculateRecipeCost,
-  getInstructions
-} from './recipes.js';
+import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from './recipes.js';
+import { addFavoriteRecipe, removeFavoriteRecipe } from './users.js';
 
 import recipeData from "./data/recipes.js";
 import ingredientsData from "./data/ingredients.js";
 
 // Variables
+var currentRecipes;
 
 // Selectors
 const recipeCardSection = document.querySelector('.recipe-card-section');
@@ -23,8 +19,6 @@ const searchButton = document.getElementById('search-button');
 const searchBarInput = document.querySelector('.search-input');
 const dropDown = document.getElementById('tag-selector');
 const tagSelectorButton = document.querySelector('.tag-selector-button')
-
-
 
 // Event listeners
 recipeCardSection.addEventListener('click', (event) => {
@@ -138,25 +132,6 @@ function displayRecipesByName(recipes, name) {
   const namedRecipes = filterByName(recipes, name)
   displayRecipeCards(namedRecipes)
 }
-
-//==============================================================================================
-// As a user, I should be able to filter recipes by a tag and/or name. 
-// get the input value from the search bar that the user inputs
-// query select the search btn and the search bar to get the input
-// pass the input thru the functions
-// ? one DOM function that invokes the filterByTag and filterByName data model functions when the user hits “search”?
-
-
-// function filterRecipes(recipes, userInput) {
-  // const tagRecipes = filterByTag(recipes, userInput)
-  // const nameRecipes = filterByName(recipes, userInput)
-  // const combinedfilteredRecipes = do concat here with tagRecipes and nameRecipes
-  // displayRecipeCards(combinedfilteredRecipes)
-// }
-//store each data model function ouput into a variable (this variable will store the returned array)
-//join these two variables into one array and store that into a new variable (.concat())
-//then run this new joined variable through the displayRecipeCards function in order to display the filtered recipes only
-
 
 export {
   displayModal,

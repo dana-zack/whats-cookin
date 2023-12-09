@@ -46,7 +46,6 @@ function getInstructions(recipe) {
   const recipeInstructions = recipe.instructions.map(step => {
     return `${step.number}. ${step.instruction}`;
   }).join('<br><br>');
-  console.log(recipeInstructions)
   return recipeInstructions;
 }
 
