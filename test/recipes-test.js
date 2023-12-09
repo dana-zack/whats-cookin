@@ -434,8 +434,18 @@ describe('Shared Variables For Testing Purposes:', () => {
       expect(filterByName).to.be.a('function');
     });
 
-    it('Should return a filtered list of recipes based on a name', () => {
+    it('Should return a filtered list of recipes based on a full name input', () => {
       const recipesByName = filterByName(recipes, "Vanilla Icecream With Strawberries");
+      expect(recipesByName).to.deep.equal(icecreamRecipe);
+    });
+
+    it('Should return a filtered list of recipes based on a partial name input', () => {
+      const recipesByName = filterByName(recipes, "Icecream");
+      expect(recipesByName).to.deep.equal(icecreamRecipe);
+    });
+
+    it('Should return a filtered list of recipes based on a full or partial name input, regardless of capitalization', () => {
+      const recipesByName = filterByName(recipes, "VaNillA IcEcreaM WitH sTrawBerrieS");
       expect(recipesByName).to.deep.equal(icecreamRecipe);
     });
 

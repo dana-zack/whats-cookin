@@ -6,11 +6,11 @@ function filterByTag(recipes, tag) {
 };
 
 function filterByName(recipes, name) {
+  if(name === undefined) return []
   const recipesByName = recipes.filter(recipe => {
-    if (recipe.name === name) {
-      return recipe;
-    }
-  });
+    const lowerCaseName = recipe.name.toLowerCase();
+    return lowerCaseName.includes(name.toLowerCase());
+    });
   return recipesByName;
 };
 
