@@ -42,8 +42,9 @@ h1 {
   font-weight: 900;
   height: 35px;
   width: 100px;
-  border-radius: 8px;
-  border: 1px solid black;
+  box-shadow: 2px 2px 0 2px;
+  border: 2px solid #000;
+  border-radius: 1rem;
 }
 
 #search-button:hover {
@@ -66,7 +67,7 @@ h1 {
   border: none;
   padding: 10px;
   background: none;
-  box-shadow: 4px 4px 0 2px;
+  box-shadow: 2px 2px 0 2px;
   border: 2px solid #000;
   border-radius: 1rem;
 }
@@ -127,6 +128,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   width: 30%;
+  margin: 10px;
   box-shadow: 4px 4px 0 2px;
   border: 2px solid #000;
   border-radius: 1rem;
@@ -145,7 +147,9 @@ h2 {
 .recipe-image {
   width: 60%;
   height: 60%;
-  padding: 0 1em;
+  padding: 0;
+  border: 2px solid #000;
+  border-radius: 1rem;
 }
 
 .recipe-content {

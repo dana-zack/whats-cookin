@@ -8,6 +8,7 @@ import {
 } from './recipes.js';
 
 import recipeData from "./data/recipes.js";
+import ingredientsData from "./data/ingredients.js";
 
 // Variables
 
@@ -29,7 +30,7 @@ const dropDown = document.querySelector('.drop-down-content');
 // Event listeners
 recipeCardSection.addEventListener('click', (event) => {
   if (event.target.classList.contains('recipe-card')) {
-    displayModal();
+    displayModal(event.target);
   }
 });
 
@@ -94,51 +95,35 @@ function displayRecipeCards(recipes) {
 
 //==============================================================================================
 // As a user, I should be able to click on a recipe to view more information including directions, ingredients needed, and total cost.
-function displayModal(recipes) {
-  // clear out the esisting innerHTML
-  // const recipeModal = document.createElement('div');
-  // recipeModal.id = 'recipe-modal';
-  // recipeModal.classList.add('recipe-modal');
-  // console.log(recipeData)
+function displayModal(recipe) {
+  const recipeTitle = document.querySelector('.recipe-title');
+  const ingredientsList = document.querySelector('.ingredients-list');
+  const instructionsList = document.querySelector('.instructions-list');
+  const totalCost = document.querySelector('.total-cost');
 
-  // const modalSection = document.createElement('article');
-  // modalSection.classList.add('recipe-modal-section');
-  // console.log(modalSection)
-  // console.log(recipeModal)
-  const modalHeader = document.querySelector('.recipe-title');
-  modalHeader.innerText = 'This is a new Recipe'
+  const clickedRecipe = recipeData.find(data => {
+    return data.name === recipe.querySelector('h2').textContent
+  });
 
-  // const modalTitle = document.createElement('h1');
-  // modalTitle.textContent = recipeData.name;
-  
-  // const favCloseSection = document.createElement('div')
-  // favCloseSection.id = 'fav-close';
-  // favCloseSection.classList.add = ('fav-close');
+  // const { name, img, instructions } = clickedRecipe
+  recipeTitle.innerText = clickedRecipe.name;
 
-  // const favoriteButton = document.createElement('button');
-  // favoriteButton.id = 'favorite-button';
-  // favoriteButton.innerHTML = '♥️';
+  const clickedRecipeIngrediens = listRecipeIngredients(clickedRecipe, ingredientsData).join('<br>')
+  ingredientsList.innerHTML = clickedRecipeIngrediens
 
-  // const closeButton = document.createElement('button');
-  // closeButton.classList.add('close-button');
-  // closeButton.setAttribute('type', 'button');
+  const clickedRecipeInstructions = getInstructions(clickedRecipe);
+  const newInstructions = clickedRecipeInstructions.map(step => {
+    return `${step.number}. ${step.instruction}`;
+  }).join('<br><br>');
 
-  // const modalDirectionsTitle = document.createElement('h3');
-  // modalDirectionsTitle.textContent = 'Directions:';
+  instructionsList.innerHTML = newInstructions;
 
-  // const modalDirections = document.createElement('p');
-  // modalDirections.textContent = recipeData.instructions;
-  
-  // modalSection.appendChild(header);
-  // modalSection.appendChild(modalDirectionsTitle);
-  // modalSection.appendChild(modalDirections);
+  const clickedRecipeCost = calculateRecipeCost(clickedRecipe, ingredientsData)
+  totalCost.innerText = clickedRecipeCost
 
-  // recipeModal.appendChild(modalSection);
-
-  // document.body.appendChild(recipeModal)
-
-  recipeModal.classList.remove('hidden')
+  recipeModal.classList.remove('hidden');
 }
+
 
 //==============================================================================================
 // As a user, I should be able to filter recipes by a tag. (Extension option: by multiple tags)
