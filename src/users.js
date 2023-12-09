@@ -5,9 +5,9 @@ function addUserRecipe(user, recipe) {
 
 function removeUserRecipe(user, recipe) {
   const index = user.recipesToCook.indexOf(recipe)
-  console.log(index)
+  // console.log(index)
   user.recipesToCook.splice(index, 1)
-  console.log(user)
+  // console.log(user)
   return user
 }
 
