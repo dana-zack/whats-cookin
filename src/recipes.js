@@ -14,17 +14,17 @@ function filterByName(recipes, name) {
   return recipesByName;
 };
 
-function listRecipeIngredients(sampleRecipe, sampleIngredients) {
-  const ingredientIds = sampleRecipe.ingredients.map(ingredient => {
-    return ingredient.id;
+function listRecipeIngredients(recipe, allIngredients) {
+  const renderedIngredients = recipe.ingredients.map(ingredient => {
+    let ingredientAmount = ingredient.quantity.amount;
+    let ingredientUnits = ingredient.quantity.unit;
+    let specificIngredient = allIngredients.find(item => {
+      return item.id === ingredient.id;
+    });
+    let ingredientName = specificIngredient.name
+    return `${ingredientName} | ${ingredientAmount} ${ingredientUnits}`
   })
-  const requiredIngredients = sampleIngredients.filter(ingredient => {
-    return ingredientIds.includes(ingredient.id);
-  })
-  const ingredientNames = requiredIngredients.map(ingredient => {
-    return ingredient.name;
-  })
-  return ingredientNames;
+  return renderedIngredients;
 };
 
 function calculateRecipeCost(recipe, ingredients) {

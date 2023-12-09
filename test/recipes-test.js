@@ -466,9 +466,11 @@ describe('Shared Variables For Testing Purposes:', () => {
       expect(listRecipeIngredients).to.be.a('function');
     });
 
-    it('Should determine the names of ingredients needed for a given recipe', () => {
-        const neededIngredients = listRecipeIngredients(recipe1, ingredients);
-        expect(neededIngredients).to.deep.equal(["watermelon", "pineapple"]);
+    it('Should list the name, amount, and units of each ingredient needed for a specific recipe', () => {
+        const recipe1Ingredients = listRecipeIngredients(recipe1, ingredients);
+        expect(recipe1Ingredients).to.deep.equal([ 'watermelon | 1 c', 'pineapple | 1 c' ]);
+        const recipe2Ingredients = listRecipeIngredients(recipe2, ingredients);
+        expect(recipe2Ingredients).to.deep.equal([ 'strawberries | 2 c', 'blackberries | 1.5 c' ]);
     });
   })
 
