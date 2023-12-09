@@ -9,7 +9,17 @@ function removeFavoriteRecipe(user, recipe) {
   return user
 }
 
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length);
+}
+
+function getRandomUser(users) {
+  return users[getRandomIndex(users)];
+}
+
 module.exports = {
   addFavoriteRecipe,
   removeFavoriteRecipe,
+  getRandomIndex,
+  getRandomUser
 };

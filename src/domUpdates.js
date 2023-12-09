@@ -1,9 +1,11 @@
 //NOTE: Your DOM manipulation will occur in this file
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from './recipes.js';
-import { addFavoriteRecipe, removeFavoriteRecipe } from './users.js';
+import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
 
 import recipeData from "./data/recipes.js";
 import ingredientsData from "./data/ingredients.js";
+import usersData from "./data/users.js";
+
 
 // Variables
 var currentRecipes;
@@ -32,14 +34,16 @@ closeButton.addEventListener('click', (event) => {
 })
 
 allRecipesButton.addEventListener('click', (event) => {
-  displayRecipeCards(recipeData)
+  currentRecipes = recipeData
+  displayRecipeCards(currentRecipes)
   searchBarInput.placeholder = "Search 'all recipes' by name..."
   allRecipesButton.style.backgroundColor = "grey";
   favoriteRecipesButton.style.backgroundColor = "white";
 })
 
 favoriteRecipesButton.addEventListener('click', (event) => {
-  // displayRecipeCards(favoriteRecipes)
+  currentRecipes = user.recipesToCook
+  displayRecipeCards(currentRecipes)
   searchBarInput.placeholder = "Search 'favorite recipes' by name..."
   allRecipesButton.style.backgroundColor = "white";
   favoriteRecipesButton.style.backgroundColor = "grey";
@@ -64,7 +68,10 @@ tagSelectorButton.addEventListener('click', (event) => {
 function onLoad() {
   displayRecipeCards(recipeData)
   searchBarInput.placeholder = "Search 'all recipes' by name"
+
 };
+
+
 
 function displayRecipeCards(recipes) {
   recipeCardSection.innerHTML = '';
