@@ -116,14 +116,10 @@ function displayModal(recipe) {
   ingredientsList.innerHTML = clickedRecipeIngrediens
 
   const clickedRecipeInstructions = getInstructions(clickedRecipe);
-  const newInstructions = clickedRecipeInstructions.map(step => {
-    return `${step.number}. ${step.instruction}`;
-  }).join('<br><br>');
-
-  instructionsList.innerHTML = newInstructions;
+  instructionsList.innerHTML = clickedRecipeInstructions;
 
   const clickedRecipeCost = calculateRecipeCost(clickedRecipe, ingredientsData)
-  totalCost.innerText = clickedRecipeCost
+  totalCost.innerText = clickedRecipeCost;
 
   recipeModal.classList.remove('hidden');
 }

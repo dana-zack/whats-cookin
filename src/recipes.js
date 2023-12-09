@@ -43,7 +43,11 @@ function calculateRecipeCost(recipe, ingredients) {
 };
 
 function getInstructions(recipe) {
-  return recipe.instructions;
+  const recipeInstructions = recipe.instructions.map(step => {
+    return `${step.number}. ${step.instruction}`;
+  }).join('<br><br>');
+  console.log(recipeInstructions)
+  return recipeInstructions;
 }
 
 module.exports = {
