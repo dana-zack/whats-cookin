@@ -39,11 +39,15 @@ closeButton.addEventListener('click', (event) => {
 allRecipesButton.addEventListener('click', (event) => {
   displayRecipeCards(recipeData)
   searchBarInput.placeholder = "Search 'all recipes' by name..."
+  allRecipesButton.style.backgroundColor = "grey";
+  favoriteRecipesButton.style.backgroundColor = "white";
 })
 
-favoriteRecipesButton.addEventListener('click',(event) => {
+favoriteRecipesButton.addEventListener('click', (event) => {
   // displayRecipeCards(favoriteRecipes)
   searchBarInput.placeholder = "Search 'favorite recipes' by name..."
+  allRecipesButton.style.backgroundColor = "white";
+  favoriteRecipesButton.style.backgroundColor = "grey";
 })
 
 addRecipesButton.addEventListener('click', (event) => {
