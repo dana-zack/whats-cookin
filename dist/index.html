@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:900|Work+Sans:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:900,800,700|Work+Sans:300" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Whats Cookin</title>
   </head>
   <body>
+    <div id="overlay"></div>
     <header>
       <h1 class="web-page-title">What's Cookin?</h1>
       <div class="search-bar">
@@ -67,7 +68,7 @@
         
       </section>
     </section>
-    <!-- INSERT MODAL -->
+    <!-- MODAL -->
     <div id="recipe-modal" class="modal hidden">
       <article class="recipe-modal-section">
         <header>
@@ -91,7 +92,7 @@
         <p class="total-cost"> <!-- Total cost will be added here --> </p>
       </article>
     </div>
-    <!-- END MODAL -->
+    <!-- MODAL -->
     </body>
     <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
     <script src="bundle.js"></script>

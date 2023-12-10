@@ -15,6 +15,7 @@ var selectedRecipe;
 
 // Selectors
 const recipeCardSection = document.querySelector('.recipe-card-section');
+const overlay = document.getElementById('overlay')
 const recipeModal = document.getElementById('recipe-modal')
 const closeButton = document.querySelector('.close-button');
 const favoriteRecipesButton = document.getElementById('favorite-recipes-button');
@@ -35,6 +36,7 @@ recipeCardSection.addEventListener('click', (event) => {
 
 closeButton.addEventListener('click', (event) => {
   recipeModal.classList.add('hidden');
+  overlay.style.display = 'none';
 })
 
 allRecipesButton.addEventListener('click', (event) => {
@@ -149,6 +151,7 @@ function displayModal(recipe) {
   totalCost.innerText = clickedRecipeCost;
 
   recipeModal.classList.remove('hidden');
+  overlay.style.display = 'block';
 }
 
 //==============================================================================================
