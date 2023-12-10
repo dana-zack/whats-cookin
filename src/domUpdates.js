@@ -49,9 +49,9 @@ allRecipesButton.addEventListener('click', (event) => {
 })
 
 favoriteRecipesButton.addEventListener('click', (event) => {
-  displayedRecipes = currentUser.recipesToCook
-  displayRecipeCards(displayedRecipes)
-
+  favoriteRecipes = currentUser.recipesToCook
+  displayedRecipes = favoriteRecipes
+  displayRecipeCards(favoriteRecipes)
 
 
   //call another function that puts remove buttons on each card that is a favorite
@@ -62,7 +62,6 @@ favoriteRecipesButton.addEventListener('click', (event) => {
   // const allDeleteButtons = document.querySelector('.delete-button')
   // allDeleteButtons.classList.remove('hidden')
   // showDeleteButton(displayedRecipes)
-  console.log(displayedRecipes)
 })
 
 removeFromFavoritesButton.addEventListener('click', (event) => {
@@ -89,13 +88,13 @@ heartButton.addEventListener('click', (event) => {
 })
 
 searchButton.addEventListener('click', (event) => {
-  displayRecipesByName(recipeData, searchBarInput.value)
+  displayRecipesByName(displayedRecipes, searchBarInput.value)
   searchBarInput.value = "";
 })
 
 tagSelectorButton.addEventListener('click', (event) => {
   const clickedTag = dropDown.value
-  displayRecipesByTag(recipeData, clickedTag)
+  displayRecipesByTag(displayedRecipes, clickedTag)
   console.log('yes!')
 })
 
