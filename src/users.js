@@ -1,7 +1,10 @@
 function addFavoriteRecipe(user, recipe) {
-  if (user.recipesToCook.includes(recipe)) return
-  user.recipesToCook.push(recipe);
-  return user;
+  if (user.recipesToCook.includes(recipe)) {
+    return user;
+  } else {
+    user.recipesToCook.push(recipe);
+    return user;
+  }
 }
 
 function removeFavoriteRecipe(user, recipe) {
