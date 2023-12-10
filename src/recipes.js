@@ -6,25 +6,25 @@ function filterByTag(recipes, tag) {
 };
 
 function filterByName(recipes, name) {
+  if(name === undefined) return []
   const recipesByName = recipes.filter(recipe => {
-    if (recipe.name === name) {
-      return recipe;
-    }
-  });
+    const lowerCaseName = recipe.name.toLowerCase();
+    return lowerCaseName.includes(name.toLowerCase());
+    });
   return recipesByName;
 };
 
-function listRecipeIngredients(sampleRecipe, sampleIngredients) {
-  const ingredientIds = sampleRecipe.ingredients.map(ingredient => {
-    return ingredient.id;
+function listRecipeIngredients(recipe, allIngredients) {
+  const renderedIngredients = recipe.ingredients.map(ingredient => {
+    let ingredientAmount = ingredient.quantity.amount;
+    let ingredientUnits = ingredient.quantity.unit;
+    let specificIngredient = allIngredients.find(item => {
+      return item.id === ingredient.id;
+    });
+    let ingredientName = specificIngredient.name
+    return `${ingredientName} | ${ingredientAmount} ${ingredientUnits}`
   })
-  const requiredIngredients = sampleIngredients.filter(ingredient => {
-    return ingredientIds.includes(ingredient.id);
-  })
-  const ingredientNames = requiredIngredients.map(ingredient => {
-    return ingredient.name;
-  })
-  return ingredientNames;
+  return renderedIngredients;
 };
 
 function calculateRecipeCost(recipe, ingredients) {
@@ -38,11 +38,15 @@ function calculateRecipeCost(recipe, ingredients) {
     cost += (ingredient.estimatedCostInCents * data.quantity.amount);
     return cost;
   }, 0)
-  return (totalCost/100).toFixed(2);
+  const avgCost = (totalCost/100).toFixed(2)
+  return `$${avgCost}`;
 };
 
 function getInstructions(recipe) {
-  return recipe.instructions;
+  const recipeInstructions = recipe.instructions.map(step => {
+    return `${step.number}. ${step.instruction}`;
+  }).join('<br><br>');
+  return recipeInstructions;
 }
 
 module.exports = {

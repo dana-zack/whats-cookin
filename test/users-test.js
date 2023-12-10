@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { addUserRecipe, removeUserRecipe, filterUserRecipesByTag, filterUserRecipesByName } from '../src/users';
+import { addFavoriteRecipe, removeFavoriteRecipe } from '../src/users';
 
 describe('Shared Variables For Testing Purposes:', () => {
   let users, user, ingredients, recipes, recipe1, recipe2, recipe3, recipesWithStrawberries, icecreamRecipe, instructions1;
@@ -450,32 +450,18 @@ describe('Shared Variables For Testing Purposes:', () => {
         ]
       }
     ];
-    instructions1 = [
-      {
-        "instruction": "Cut up the pineapple and watermelon",
-        "number": 1
-      },
-      {
-        "instruction": "Mix the fruit in a large bowl until evenly dispersed.",
-        "number": 2
-      },
-      {
-        "instruction": "Enjoy your tropical salad!",
-        "number": 3
-      }
-    ];
   });
 
   //==============================================================================
   //==============================================================================
   // Allow a user to add a recipe to their recipesToCook list
-  describe('addUserRecipe', () => {
+  describe('addFavoriteRecipe', () => {
     it('Should be a function', () => {
-      expect(addUserRecipe).to.be.a('function');
+      expect(addFavoriteRecipe).to.be.a('function');
     });
 
     it('Should allow a user to add a recipe to their recipesToCook list', () => {
-      const updatedUser = addUserRecipe(user, recipe1)
+      const updatedUser = addFavoriteRecipe(user, recipe1)
       expect(updatedUser).to.deep.equal({
         "name": "Dana Zack",
         "id": 2,
@@ -486,16 +472,16 @@ describe('Shared Variables For Testing Purposes:', () => {
 
   //==============================================================================
   // Allow a user to remove a recipe from  their recipesToCook list
-  describe('removeUserRecipe', () => {
+  describe('removeFavoriteRecipe', () => {
     it('Should be a function', () => {
-      expect(removeUserRecipe).to.be.a('function');
+      expect(removeFavoriteRecipe).to.be.a('function');
     });
 
     it('Should allow a user to remove a recipe from their recipesToCook list', () => {
-      addUserRecipe(user, recipe1)
-      addUserRecipe(user, recipe2)
-      addUserRecipe(user, recipe3)
-      const updatedUser = removeUserRecipe(user, recipe2)
+      addFavoriteRecipe(user, recipe1)
+      addFavoriteRecipe(user, recipe2)
+      addFavoriteRecipe(user, recipe3)
+      const updatedUser = removeFavoriteRecipe(user, recipe2)
       expect(updatedUser).to.deep.equal({
         "name": "Dana Zack",
         "id": 2,
@@ -505,29 +491,4 @@ describe('Shared Variables For Testing Purposes:', () => {
   });
 
 
-
-
-
-
-
-
-
-
-
-
-  //==============================================================================
-  // Filter my recipesToCook by a tag. (Extension option: filter by multiple tags)
-  describe('filterUserRecipesByTag', () => {
-    it('Should be a function', () => {
-      expect(filterUserRecipesByTag).to.be.a('function');
-    });
-  });
-
-  //==============================================================================
-  // Filter my recipesToCook by its name. (Extension option: filter by name or ingredients)
-  describe('filterUserRecipesByName', () => {
-    it('Should be a function', () => {
-      expect(filterUserRecipesByName).to.be.a('function');
-    });
-  });
-});
+})
