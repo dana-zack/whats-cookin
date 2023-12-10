@@ -1,16 +1,17 @@
 //NOTE: Your DOM manipulation will occur in this file
-import {
-  filterByTag,
-  filterByName,
-  listRecipeIngredients,
-  calculateRecipeCost,
-  getInstructions
-} from './recipes.js';
+import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from './recipes.js';
+import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
 
 import recipeData from "./data/recipes.js";
 import ingredientsData from "./data/ingredients.js";
+import usersData from "./data/users.js";
 
 // Variables
+var displayedRecipes;
+var currentRecipe;
+var currentUser;
+var favoriteRecipes;
+var selectedRecipe;
 
 // Selectors
 const recipeCardSection = document.querySelector('.recipe-card-section');
@@ -18,19 +19,18 @@ const recipeModal = document.getElementById('recipe-modal')
 const closeButton = document.querySelector('.close-button');
 const favoriteRecipesButton = document.getElementById('favorite-recipes-button');
 const allRecipesButton = document.getElementById('all-recipes-button');
-const addRecipesButton = document.getElementById('favorite-recipes-button');
+const heartButton = document.getElementById('heart-button');
 const searchButton = document.getElementById('search-button');
 const searchBarInput = document.querySelector('.search-input');
 const dropDown = document.getElementById('tag-selector');
 const tagSelectorButton = document.querySelector('.tag-selector-button')
-
-
+const webPageTitle = document.querySelector('.web-page-title')
 
 // Event listeners
 recipeCardSection.addEventListener('click', (event) => {
-  if (event.target.classList.contains('recipe-card')) {
-    displayModal(event.target);
-  }
+  selectedRecipe = event.target.closest('article');
+  console.log(selectedRecipe)
+  displayModal(selectedRecipe);
 });
 
 closeButton.addEventListener('click', (event) => {
@@ -38,22 +38,37 @@ closeButton.addEventListener('click', (event) => {
 })
 
 allRecipesButton.addEventListener('click', (event) => {
-  displayRecipeCards(recipeData)
+  displayedRecipes = recipeData
+  displayRecipeCards(displayedRecipes)
   searchBarInput.placeholder = "Search 'all recipes' by name..."
   allRecipesButton.style.backgroundColor = "grey";
   favoriteRecipesButton.style.backgroundColor = "white";
 })
 
 favoriteRecipesButton.addEventListener('click', (event) => {
-  // displayRecipeCards(favoriteRecipes)
+  displayedRecipes = currentUser.recipesToCook
+  displayRecipeCards(displayedRecipes)
   searchBarInput.placeholder = "Search 'favorite recipes' by name..."
   allRecipesButton.style.backgroundColor = "white";
   favoriteRecipesButton.style.backgroundColor = "grey";
 })
 
-addRecipesButton.addEventListener('click', (event) => {
-  //push event.target into favoriteRecipes array
-})
+// heartButton.addEventListener('click', (event) => {
+//   selectedRecipe = event.target.closest('article')
+  
+//   const clickedRecipe = recipeData.find(data => {
+//     return data.name === selectedRecipe.querySelector('h2').innerText
+//   });
+  
+//   const addedRecipe = recipeData.find(recipe => {
+//     console.log(recipe.name)
+//     selectedRecipe = document.querySelector('h2').innerText
+//     console.log(selectedRecipe)
+//     return recipe.name === selectedRecipe
+//   });
+//   console.log(clickedRecipe)
+//   addFavoriteRecipe(currentUser, clickedRecipe)
+// })
 
 searchButton.addEventListener('click', (event) => {
   displayRecipesByName(recipeData, searchBarInput.value)
@@ -69,6 +84,8 @@ tagSelectorButton.addEventListener('click', (event) => {
 // Functions
 function onLoad() {
   displayRecipeCards(recipeData)
+  currentUser = getRandomUser(usersData)
+  webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
   searchBarInput.placeholder = "Search 'all recipes' by name"
 };
 
@@ -89,10 +106,17 @@ function displayRecipeCards(recipes) {
     const content = document.createElement('p');
     content.classList.add('recipe-content');
     content.textContent = `${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps`;
+
+    const id = document.createElement('p')
+    id.classList.add('recipe-id');
+    id.classList.add('hidden');
+
+    id.textContent = recipe.id
     
     card.appendChild(title);
     card.appendChild(image);
     card.appendChild(content);
+    card.appendChild(id);
     recipeCardSection.appendChild(card)
   })
 }
@@ -105,25 +129,27 @@ function displayModal(recipe) {
   const instructionsList = document.querySelector('.instructions-list');
   const totalCost = document.querySelector('.total-cost');
 
-  const clickedRecipe = recipeData.find(data => {
-    return data.name === recipe.querySelector('h2').textContent
-  });
+  let selectedRecipeID = Number(recipe.querySelector('.recipe-id').textContent)
+  console.log(selectedRecipeID)
+  recipeData.forEach(recipe => {
+    if (selectedRecipeID === recipe.id) {
+      currentRecipe = recipe;
+    }
+  })
 
-  // const { name, img, instructions } = clickedRecipe
-  recipeTitle.innerText = clickedRecipe.name;
+  recipeTitle.innerText = currentRecipe.name;
 
-  const clickedRecipeIngrediens = listRecipeIngredients(clickedRecipe, ingredientsData).join('<br>')
+  const clickedRecipeIngrediens = listRecipeIngredients(currentRecipe, ingredientsData).join('<br>')
   ingredientsList.innerHTML = clickedRecipeIngrediens
 
-  const clickedRecipeInstructions = getInstructions(clickedRecipe);
+  const clickedRecipeInstructions = getInstructions(currentRecipe);
   instructionsList.innerHTML = clickedRecipeInstructions;
 
-  const clickedRecipeCost = calculateRecipeCost(clickedRecipe, ingredientsData)
+  const clickedRecipeCost = calculateRecipeCost(currentRecipe, ingredientsData)
   totalCost.innerText = clickedRecipeCost;
 
   recipeModal.classList.remove('hidden');
 }
-
 
 //==============================================================================================
 // As a user, I should be able to filter recipes by a tag. (Extension option: by multiple tags)
@@ -138,25 +164,6 @@ function displayRecipesByName(recipes, name) {
   const namedRecipes = filterByName(recipes, name)
   displayRecipeCards(namedRecipes)
 }
-
-//==============================================================================================
-// As a user, I should be able to filter recipes by a tag and/or name. 
-// get the input value from the search bar that the user inputs
-// query select the search btn and the search bar to get the input
-// pass the input thru the functions
-// ? one DOM function that invokes the filterByTag and filterByName data model functions when the user hits “search”?
-
-
-// function filterRecipes(recipes, userInput) {
-  // const tagRecipes = filterByTag(recipes, userInput)
-  // const nameRecipes = filterByName(recipes, userInput)
-  // const combinedfilteredRecipes = do concat here with tagRecipes and nameRecipes
-  // displayRecipeCards(combinedfilteredRecipes)
-// }
-//store each data model function ouput into a variable (this variable will store the returned array)
-//join these two variables into one array and store that into a new variable (.concat())
-//then run this new joined variable through the displayRecipeCards function in order to display the filtered recipes only
-
 
 export {
   displayModal,

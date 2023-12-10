@@ -1,27 +1,25 @@
-function addUserRecipe(user, recipe) {
+function addFavoriteRecipe(user, recipe) {
   user.recipesToCook.push(recipe);
   return user;
 }
 
-function removeUserRecipe(user, recipe) {
+function removeFavoriteRecipe(user, recipe) {
   const index = user.recipesToCook.indexOf(recipe)
-  // console.log(index)
   user.recipesToCook.splice(index, 1)
-  // console.log(user)
   return user
 }
 
-function filterUserRecipesByTag() {
-
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length);
 }
 
-function filterUserRecipesByName() {
-
+function getRandomUser(users) {
+  return users[getRandomIndex(users)];
 }
 
 module.exports = {
-  addUserRecipe,
-  removeUserRecipe,
-  filterUserRecipesByTag,
-  filterUserRecipesByName
+  addFavoriteRecipe,
+  removeFavoriteRecipe,
+  getRandomIndex,
+  getRandomUser
 };
