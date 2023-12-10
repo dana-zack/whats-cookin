@@ -187,11 +187,11 @@ h2 {
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 60%;
   box-shadow: 4px 4px 0 2px;
   border: 2px solid #000;
   border-radius: 1rem;
-  max-height: 80vh;
+  max-height: 75vh;
   overflow-y: auto;
   z-index: 1000;
 }
