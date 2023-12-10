@@ -1,4 +1,5 @@
 function addFavoriteRecipe(user, recipe) {
+  if (user.recipesToCook.includes(recipe)) return
   user.recipesToCook.push(recipe);
   return user;
 }
