@@ -203,6 +203,13 @@ h2 {
   border: 2px;
 }
 
+.heart-button {
+  color: black;
+}
+
+.heart-button.favorited {
+  color: red;
+}
 
 
 /* MISC STYLES */

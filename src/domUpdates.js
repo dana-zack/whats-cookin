@@ -152,7 +152,26 @@ function displayModal(recipe) {
 
   recipeModal.classList.remove('hidden');
   overlay.style.display = 'block';
+
+  // toggleHeartColor(currentUser.recipesToCook.includes(clickedRecipe));
 }
+
+function toggleFavorite(recipe) {
+  
+  
+  
+  if (isFavorite) {
+    addFavoriteRecipe(user, recipe)
+  } else {
+    removeFavoriteRecipe(user, recipe)
+  }
+  
+  toggleHeartBtnColor(isFavorite)
+}
+
+// function toggleHeartBtnColor(isFavorite) {
+//   heartButton.style.color = isFavorite
+// }
 
 //==============================================================================================
 // As a user, I should be able to filter recipes by a tag. (Extension option: by multiple tags)
