@@ -14,7 +14,7 @@ This PR [adds/removes/fixes/replaces] the [feature/bug/etc].
 
 ## Reviewers
 
-Dana Zack & Laura Long & Eric Kendrick
+Dana Zack & Laura Long
 
 ## Screenshots/ Recordings
 
