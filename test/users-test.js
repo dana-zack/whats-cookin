@@ -468,6 +468,16 @@ describe('Shared Variables For Testing Purposes:', () => {
         "recipesToCook": [recipe1]
       });
     });
+
+    it("Should prevent duplicates from being added to a user's recipesToCook list", () => {
+      const updatedUser1 = addFavoriteRecipe(user, recipe1)
+      const updatedUser2 = addFavoriteRecipe(updatedUser1, recipe1)
+      expect(updatedUser2).to.deep.equal({
+        "name": "Dana Zack",
+        "id": 2,
+        "recipesToCook": [recipe1]
+      });
+    });
   });
 
   //==============================================================================
@@ -489,6 +499,4 @@ describe('Shared Variables For Testing Purposes:', () => {
       });
     });
   });
-
-
 })
