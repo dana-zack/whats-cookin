@@ -36,8 +36,7 @@ recipeCardSection.addEventListener('click', (event) => {
 });
 
 closeButton.addEventListener('click', (event) => {
-  recipeModal.classList.add('hidden');
-  overlay.style.display = 'none';
+  closeModal();
 })
 
 allRecipesButton.addEventListener('click', (event) => {
@@ -46,22 +45,18 @@ allRecipesButton.addEventListener('click', (event) => {
   searchBarInput.placeholder = "Search 'all recipes' by name..."
   allRecipesButton.style.backgroundColor = "grey";
   favoriteRecipesButton.style.backgroundColor = "white";
+  removeFromFavoritesButton.classList.add('hidden')
+  heartButton.classList.remove('hidden')
 })
 
 favoriteRecipesButton.addEventListener('click', (event) => {
-  favoriteRecipes = currentUser.recipesToCook
-  displayedRecipes = favoriteRecipes
-  displayRecipeCards(favoriteRecipes)
-
-
-  //call another function that puts remove buttons on each card that is a favorite
+  displayedRecipes = currentUser.recipesToCook
+  displayRecipeCards(displayedRecipes)
   searchBarInput.placeholder = "Search 'favorite recipes' by name..."
   allRecipesButton.style.backgroundColor = "white";
   favoriteRecipesButton.style.backgroundColor = "grey";
-  //remove the "hidden" classList from the deleteButton
-  // const allDeleteButtons = document.querySelector('.delete-button')
-  // allDeleteButtons.classList.remove('hidden')
-  // showDeleteButton(displayedRecipes)
+  removeFromFavoritesButton.classList.remove('hidden')
+  heartButton.classList.add('hidden')
 })
 
 removeFromFavoritesButton.addEventListener('click', (event) => {
@@ -70,6 +65,7 @@ removeFromFavoritesButton.addEventListener('click', (event) => {
   updateCurrentRecipe(chosenRecipe)
   console.log(currentRecipe)
   removeFavoriteRecipe(currentUser, currentRecipe)
+  closeModal()
   displayRecipeCards(displayedRecipes)
 })
 
@@ -114,6 +110,11 @@ function onLoad() {
 //     }
 //   })
 // }
+
+function closeModal(){
+  recipeModal.classList.add('hidden');
+  overlay.style.display = 'none';
+}
 
 function updateCurrentRecipe(recipe) {
   let selectedRecipeName = recipe.querySelector('.recipe-title').textContent;
