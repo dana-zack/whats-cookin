@@ -78,7 +78,8 @@ tagSelectorButton.addEventListener('click', (event) => {
 
 // Functions
 function onLoad() {
-  displayRecipeCards(recipeData)
+  displayedRecipes = recipeData
+  displayRecipeCards(displayedRecipes)
   currentUser = getRandomUser(usersData)
   webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
   searchBarInput.placeholder = "Search 'all recipes' by name"
@@ -91,11 +92,14 @@ function closeModal(){
 
 function displayRecipeCards(recipes) {
   recipeCardSection.innerHTML = '';
+  if (recipes.length === 0) {
+    recipeCardSection.innerHTML = `<p class="no-results-message">No results found</p>`
+  } else {
   recipes.forEach(recipe => {
     const card = document.createElement('article');
     card.classList.add('recipe-card');
     const title = document.createElement('h2');
-    title.classList.add('recipe-title')
+    title.classList.add('recipe-title');
     title.textContent = recipe.name;
     const image = document.createElement('img');
     image.classList.add('recipe-image');
@@ -114,6 +118,7 @@ function displayRecipeCards(recipes) {
     card.appendChild(id);
     recipeCardSection.appendChild(card);
   })
+}
 }
 
 function updateCurrentRecipe(recipe) {
