@@ -5,15 +5,33 @@ import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.
 // import recipeData from "./data/recipes.js";
 // import ingredientsData from "./data/ingredients.js";
 // import usersData from "./data/users.js";
-// import { userApiData, recipeApiData, ingredientApiData } from "./apiCalls.js";
-import { getUsers, getRecipes, getIngredients } from "./apiCalls.js";
+import { fetchUsers, fetchRecipes, fetchIngredients } from "./apiCalls.js";
 
-let users = getUsers()
-console.log(users)
-let recipes = getRecipes()
-console.log(recipes)
-let ingredients = getIngredients()
-console.log(ingredients)
+let apiUsers;
+let apiRecipes;
+let apiIngredients;
+
+function getUsers() {
+  fetchUsers().then(data => apiUsers = data.users)
+}
+
+function getRecipes() {
+  fetchRecipes().then(data => apiRecipes = data.recipes)
+}
+
+function getIngredients() {
+  fetchIngredients().then(data => apiIngredients = data.ingredients)
+}
+
+function onLoad() {
+  getUsers()
+  getRecipes()
+  getIngredients()
+  displayRecipeCards(apiRecipes)
+  currentUser = getRandomUser(apiUsers)
+  webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
+  searchBarInput.placeholder = "Search 'all recipes' by name"
+};
 
 // Variables
 var displayedRecipes;
@@ -36,6 +54,8 @@ const webPageTitle = document.querySelector('.web-page-title')
 const removeFromFavoritesButton = document.getElementById('delete-button')
 
 // Event listeners
+window.addEventListener('load', onLoad())
+
 recipeCardSection.addEventListener('click', (event) => {
   const selectedRecipe = event.target.closest('article');
   displayModal(selectedRecipe);
@@ -46,7 +66,7 @@ closeButton.addEventListener('click', (event) => {
 })
 
 allRecipesButton.addEventListener('click', (event) => {
-  displayedRecipes = userApiData
+  displayedRecipes = apiRecipes
   displayRecipeCards(displayedRecipes)
   searchBarInput.placeholder = "Search 'all recipes' by name..."
   allRecipesButton.style.backgroundColor = "grey";
@@ -86,13 +106,6 @@ tagSelectorButton.addEventListener('click', (event) => {
 })
 
 // Functions
-function onLoad() {
-  displayRecipeCards(userApiData)
-  currentUser = getRandomUser(userApiData)
-  webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
-  searchBarInput.placeholder = "Search 'all recipes' by name"
-};
-
 function closeModal(){
   recipeModal.classList.add('hidden');
   overlay.style.display = 'none';
@@ -100,40 +113,37 @@ function closeModal(){
 
 function displayRecipeCards(recipes) {
   recipeCardSection.innerHTML = '';
-  // recipes.forEach(recipe => {
-  //   const card = document.createElement('article');
-  //   card.classList.add('recipe-card');
-  //   const title = document.createElement('h2');
-  //   title.classList.add('recipe-title')
-  //   title.textContent = recipe.name;
-  //   const image = document.createElement('img');
-  //   image.classList.add('recipe-image');
-  //   image.src = recipe.image;
-  //   image.alt = recipe.name;
-  //   const content = document.createElement('p');
-  //   content.classList.add('recipe-content');
-  //   content.textContent = `${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps`;
-  //   const id = document.createElement('p')
-  //   id.classList.add('recipe-id');
-  //   id.classList.add('hidden');
-  //   id.textContent = recipe.id
-  //   card.appendChild(title);
-  //   card.appendChild(image);
-  //   card.appendChild(content);
-  //   card.appendChild(id);
-  //   recipeCardSection.appendChild(card);
-  // })
+  recipes.forEach(recipe => {
+    const card = document.createElement('article');
+    card.classList.add('recipe-card');
+    const title = document.createElement('h2');
+    title.classList.add('recipe-title')
+    title.textContent = recipe.name;
+    const image = document.createElement('img');
+    image.classList.add('recipe-image');
+    image.src = recipe.image;
+    image.alt = recipe.name;
+    const content = document.createElement('p');
+    content.classList.add('recipe-content');
+    content.textContent = `${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps`;
+    const id = document.createElement('p')
+    id.classList.add('recipe-id');
+    id.classList.add('hidden');
+    id.textContent = recipe.id
+    card.appendChild(title);
+    card.appendChild(image);
+    card.appendChild(content);
+    card.appendChild(id);
+    recipeCardSection.appendChild(card);
+  })
 }
 
 function updateCurrentRecipe(recipe) {
-  console.log(recipe)
   let selectedRecipeName = recipe.querySelector('.recipe-title').textContent;
-  console.log(selectedRecipeName)
   currentRecipe = '';
-  userApiData.forEach(recipe => {
+  apiRecipes.forEach(recipe => {
     if (selectedRecipeName === recipe.name) {
       currentRecipe = recipe;
-      console.log(currentRecipe)
     }
   })
 }
@@ -145,11 +155,11 @@ function displayModal(recipe) {
   const totalCost = document.querySelector('.total-cost');
   updateCurrentRecipe(recipe)
   modalTitle.innerText = currentRecipe.name;
-  const clickedRecipeIngredients = listRecipeIngredients(currentRecipe, ingredientsData).join('<br>')
+  const clickedRecipeIngredients = listRecipeIngredients(currentRecipe, apiIngredients).join('<br>')
   ingredientsList.innerHTML = clickedRecipeIngredients
   const clickedRecipeInstructions = getInstructions(currentRecipe);
   instructionsList.innerHTML = clickedRecipeInstructions;
-  const clickedRecipeCost = calculateRecipeCost(currentRecipe, ingredientsData)
+  const clickedRecipeCost = calculateRecipeCost(currentRecipe, ingredients)
   totalCost.innerText = clickedRecipeCost;
   recipeModal.classList.remove('hidden');
   overlay.style.display = 'block';
@@ -169,8 +179,15 @@ export {
   displayModal,
   displayRecipeCards,
   onLoad,
+  getUsers,
+  getIngredients,
+  getRecipes,
   displayRecipesByTag,
   displayRecipesByName,
   updateCurrentRecipe,
   closeModal
 }
+
+export default apiRecipes
+export default apiRIngredients
+export default apiUsers

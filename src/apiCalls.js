@@ -2,34 +2,25 @@
 
 console.log('I will be a fetch request!')
 
-function getUsers() {
-  fetch("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users")
-    .then(response => response.json())
-    .then(data => {
-      console.log(data.users);
-      return data.users;
-    })
+function fetchUsers() {
+  const users = fetch("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users");
+    .then(response => response.json());
     .catch(err => console.log('error'));
+  return users;
 }
 
-function getRecipes() {
-  fetch("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes")
-    .then(response => response.json())
-    .then(data => {
-      console.log(data.recipes);
-      return data.recipes;
-    })
+function fetchRecipes() {
+  const recipes = fetch("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes");
+    .then(response => response.json());
     .catch(err => console.log('error'));
+  return recipes;
 }
 
-function getIngredients() {
-  fetch("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients")
-    .then(response => response.json())
-    .then(data => {
-      console.log(data.ingredients);
-      return data.ingredients;
-    })
+function fetchIngredients() {
+  const ingredients = fetch("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients");
+    .then(response => response.json());
     .catch(err => console.log('error'));
+  return ingredients;
 }
 
-export { getUsers, getRecipes, getIngredients }
+export { fetchUsers, fetchRecipes, fetchIngredients }
