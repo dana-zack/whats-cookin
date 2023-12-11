@@ -2,9 +2,18 @@
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from './recipes.js';
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
 
-import recipeData from "./data/recipes.js";
-import ingredientsData from "./data/ingredients.js";
-import usersData from "./data/users.js";
+// import recipeData from "./data/recipes.js";
+// import ingredientsData from "./data/ingredients.js";
+// import usersData from "./data/users.js";
+// import { userApiData, recipeApiData, ingredientApiData } from "./apiCalls.js";
+import { getUsers, getRecipes, getIngredients } from "./apiCalls.js";
+
+let users = getUsers()
+console.log(users)
+let recipes = getRecipes()
+console.log(recipes)
+let ingredients = getIngredients()
+console.log(ingredients)
 
 // Variables
 var displayedRecipes;
@@ -37,7 +46,7 @@ closeButton.addEventListener('click', (event) => {
 })
 
 allRecipesButton.addEventListener('click', (event) => {
-  displayedRecipes = recipeData
+  displayedRecipes = userApiData
   displayRecipeCards(displayedRecipes)
   searchBarInput.placeholder = "Search 'all recipes' by name..."
   allRecipesButton.style.backgroundColor = "grey";
@@ -78,8 +87,8 @@ tagSelectorButton.addEventListener('click', (event) => {
 
 // Functions
 function onLoad() {
-  displayRecipeCards(recipeData)
-  currentUser = getRandomUser(usersData)
+  displayRecipeCards(userApiData)
+  currentUser = getRandomUser(userApiData)
   webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
   searchBarInput.placeholder = "Search 'all recipes' by name"
 };
@@ -91,29 +100,29 @@ function closeModal(){
 
 function displayRecipeCards(recipes) {
   recipeCardSection.innerHTML = '';
-  recipes.forEach(recipe => {
-    const card = document.createElement('article');
-    card.classList.add('recipe-card');
-    const title = document.createElement('h2');
-    title.classList.add('recipe-title')
-    title.textContent = recipe.name;
-    const image = document.createElement('img');
-    image.classList.add('recipe-image');
-    image.src = recipe.image;
-    image.alt = recipe.name;
-    const content = document.createElement('p');
-    content.classList.add('recipe-content');
-    content.textContent = `${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps`;
-    const id = document.createElement('p')
-    id.classList.add('recipe-id');
-    id.classList.add('hidden');
-    id.textContent = recipe.id
-    card.appendChild(title);
-    card.appendChild(image);
-    card.appendChild(content);
-    card.appendChild(id);
-    recipeCardSection.appendChild(card);
-  })
+  // recipes.forEach(recipe => {
+  //   const card = document.createElement('article');
+  //   card.classList.add('recipe-card');
+  //   const title = document.createElement('h2');
+  //   title.classList.add('recipe-title')
+  //   title.textContent = recipe.name;
+  //   const image = document.createElement('img');
+  //   image.classList.add('recipe-image');
+  //   image.src = recipe.image;
+  //   image.alt = recipe.name;
+  //   const content = document.createElement('p');
+  //   content.classList.add('recipe-content');
+  //   content.textContent = `${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps`;
+  //   const id = document.createElement('p')
+  //   id.classList.add('recipe-id');
+  //   id.classList.add('hidden');
+  //   id.textContent = recipe.id
+  //   card.appendChild(title);
+  //   card.appendChild(image);
+  //   card.appendChild(content);
+  //   card.appendChild(id);
+  //   recipeCardSection.appendChild(card);
+  // })
 }
 
 function updateCurrentRecipe(recipe) {
@@ -121,7 +130,7 @@ function updateCurrentRecipe(recipe) {
   let selectedRecipeName = recipe.querySelector('.recipe-title').textContent;
   console.log(selectedRecipeName)
   currentRecipe = '';
-  recipeData.forEach(recipe => {
+  userApiData.forEach(recipe => {
     if (selectedRecipeName === recipe.name) {
       currentRecipe = recipe;
       console.log(currentRecipe)
