@@ -122,14 +122,11 @@ function displayRecipeCards(recipes) {
 }
 
 function updateCurrentRecipe(recipe) {
-  console.log(recipe)
   let selectedRecipeName = recipe.querySelector('.recipe-title').textContent;
-  console.log(selectedRecipeName)
   currentRecipe = '';
   recipeData.forEach(recipe => {
     if (selectedRecipeName === recipe.name) {
       currentRecipe = recipe;
-      console.log(currentRecipe)
     }
   })
 }
