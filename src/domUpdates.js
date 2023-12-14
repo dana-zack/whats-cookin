@@ -7,9 +7,9 @@ import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.
 // import usersData from "./data/users.js";
 import { fetchUsers, fetchRecipes, fetchIngredients } from "./apiCalls.js";
 
-let apiUsers;
-let apiRecipes;
-let apiIngredients;
+export let apiUsers;
+export let apiRecipes;
+export let apiIngredients;
 
 function getUsers() {
   fetchUsers().then(data => apiUsers = data.users)
@@ -187,7 +187,3 @@ export {
   updateCurrentRecipe,
   closeModal
 }
-
-export default apiRecipes
-export default apiRIngredients
-export default apiUsers
