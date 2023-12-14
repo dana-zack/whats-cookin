@@ -7,9 +7,9 @@ import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.
 // import usersData from "./data/users.js";
 import { fetchUsers, fetchRecipes, fetchIngredients } from "./apiCalls.js";
 
-export let apiUsers;
-export let apiRecipes;
-export let apiIngredients;
+let apiUsers;
+let apiRecipes;
+let apiIngredients;
 
 function getUsers() {
   fetchUsers().then(data => apiUsers = data.users)
@@ -22,6 +22,8 @@ function getRecipes() {
 function getIngredients() {
   fetchIngredients().then(data => apiIngredients = data.ingredients)
 }
+
+console.log(apiRecipes)
 
 function onLoad() {
   getUsers()
@@ -112,6 +114,7 @@ function closeModal(){
 }
 
 function displayRecipeCards(recipes) {
+  console.log(recipes)
   recipeCardSection.innerHTML = '';
   recipes.forEach(recipe => {
     const card = document.createElement('article');
