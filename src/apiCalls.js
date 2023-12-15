@@ -3,11 +3,10 @@
 console.log('I will be a fetch request!')
 
 function fetchUsers() {
-  const users = fetch("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users")
+   return fetch("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users")
     .then(response => response.json())
     // .then(data => data)
     .catch(err => console.log('error'))
-  return users;
 }
 
 function fetchRecipes() {
@@ -26,4 +25,6 @@ function fetchIngredients() {
   return ingredients;
 }
 
-export { fetchUsers, fetchRecipes, fetchIngredients }
+const fetchedPromises = () => Promise.all([fetchUsers(), fetchRecipes(), fetchIngredients()])
+
+export { fetchUsers, fetchRecipes, fetchIngredients, fetchedPromises }

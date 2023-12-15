@@ -1,44 +1,25 @@
-//NOTE: Your DOM manipulation will occur in this file
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from './recipes.js';
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
-
-// import recipeData from "./data/recipes.js";
-// import ingredientsData from "./data/ingredients.js";
-// import usersData from "./data/users.js";
-import { fetchUsers, fetchRecipes, fetchIngredients } from "./apiCalls.js";
+import { fetchedPromises } from "./apiCalls.js";
 
 let apiUsers;
 let apiRecipes;
 let apiIngredients;
+let currentUser;
+let displayedRecipes;
+let currentRecipe;
 
-function getUsers() {
-  fetchUsers().then(data => apiUsers = data.users)
-}
 
-function getRecipes() {
-  fetchRecipes().then(data => apiRecipes = data.recipes)
-}
 
-function getIngredients() {
-  fetchIngredients().then(data => apiIngredients = data.ingredients)
-}
 
-console.log(apiRecipes)
 
-function onLoad() {
-  getUsers()
-  getRecipes()
-  getIngredients()
-  displayRecipeCards(apiRecipes)
-  currentUser = getRandomUser(apiUsers)
-  webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
-  searchBarInput.placeholder = "Search 'all recipes' by name"
-};
+
+
+
 
 // Variables
-var displayedRecipes;
-var currentRecipe;
-var currentUser;
+
+
 
 // Selectors
 const recipeCardSection = document.querySelector('.recipe-card-section');
@@ -56,7 +37,18 @@ const webPageTitle = document.querySelector('.web-page-title')
 const removeFromFavoritesButton = document.getElementById('delete-button')
 
 // Event listeners
-window.addEventListener('load', onLoad())
+window.addEventListener('load', () => {
+  console.log(fetchedPromises)
+  fetchedPromises().then(data => {
+    apiUsers = data[0].users;
+    apiRecipes = data[1].recipes;
+    apiIngredients = data[2].ingredients;
+    currentUser = getRandomUser(apiUsers)
+    webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
+    searchBarInput.placeholder = "Search 'all recipes' by name"
+    displayRecipeCards(apiRecipes)
+  })
+})
 
 recipeCardSection.addEventListener('click', (event) => {
   const selectedRecipe = event.target.closest('article');
@@ -162,7 +154,7 @@ function displayModal(recipe) {
   ingredientsList.innerHTML = clickedRecipeIngredients
   const clickedRecipeInstructions = getInstructions(currentRecipe);
   instructionsList.innerHTML = clickedRecipeInstructions;
-  const clickedRecipeCost = calculateRecipeCost(currentRecipe, ingredients)
+  const clickedRecipeCost = calculateRecipeCost(currentRecipe, apiIngredients)
   totalCost.innerText = clickedRecipeCost;
   recipeModal.classList.remove('hidden');
   overlay.style.display = 'block';
@@ -181,10 +173,10 @@ function displayRecipesByName(recipes, name) {
 export {
   displayModal,
   displayRecipeCards,
-  onLoad,
-  getUsers,
-  getIngredients,
-  getRecipes,
+  // onLoad,
+  // getUsers,
+  // getIngredients,
+  // getRecipes,
   displayRecipesByTag,
   displayRecipesByName,
   updateCurrentRecipe,
