@@ -48,7 +48,7 @@ h1 {
 
 #search-button:hover {
   background-color: rgb(197, 195, 195);
-  transform: scale(1.15);
+  transform: scale(1.07);
   cursor: pointer;
 }
 
@@ -76,7 +76,7 @@ h1 {
 }
 
 .nav-bar-button:hover {
-  transform: scale(1.02);
+  transform: scale(1.08);
   cursor: pointer;
 }
 
@@ -130,6 +130,11 @@ h1 {
   border-radius: .7rem;
 }
 
+#tag-selector-button:hover {
+transform: scale(1.07);
+  cursor: pointer;
+}
+
 /* RECIPE CONTAINER */
 
 .main-page {
@@ -152,6 +157,7 @@ h1 {
   box-shadow: 4px 4px 0 2px;
   border: 2px solid #000;
   border-radius: 1rem;
+  height: 250px;
 }
 
 .recipe-card:hover {
@@ -160,10 +166,11 @@ h1 {
 }
 
 h2 {
-  font-size:1.2em;
+  font-size:.8em;
   font-weight: 800;
   margin: 10px;
   text-align: center;
+  height: 40px;
 }
 
 .no-results-message {
@@ -177,7 +184,8 @@ h2 {
 }
 
 .recipe-content {
-  font-size: 1em;
+  font-size: .7em;
+  padding: 10px 0;
 }
 
 /* MODAL */
@@ -200,25 +208,38 @@ h2 {
   z-index: 1000;
 }
 
-
 .fav-close {
   display: flex;
   align-items: flex-start;
   border: 2px;
 }
 
-.heart-button {
-  color: black;
-}
-
-.heart-button.favorited {
+#heart-button {
   color: red;
+  width: 35px;
+  height: 35px;
+  border-radius: 20%;
 }
 
+#delete-button {
+  height: 35px;
+  width: 150px;
+}
+
+.close-button {
+  width: 35px;
+  height: 35px;
+  border-radius: 20%;
+  margin: 0 4px;
+}
+
+.total-cost {
+  margin: 0 40px;
+}
 
 /* MISC STYLES */
 .hidden {
-  display: none
+  display: none;
 }
 
 #overlay {

@@ -1,15 +1,14 @@
-//NOTE: Your DOM manipulation will occur in this file
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from './recipes.js';
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
-
-import recipeData from "./data/recipes.js";
-import ingredientsData from "./data/ingredients.js";
-import usersData from "./data/users.js";
+import { fetchedPromises } from "./apiCalls.js";
 
 // Variables
-var displayedRecipes;
-var currentRecipe;
-var currentUser;
+let apiUsers;
+let apiRecipes;
+let apiIngredients;
+let currentUser;
+let displayedRecipes;
+let currentRecipe;
 
 // Selectors
 const recipeCardSection = document.querySelector('.recipe-card-section');
@@ -27,6 +26,20 @@ const webPageTitle = document.querySelector('.web-page-title')
 const removeFromFavoritesButton = document.getElementById('delete-button')
 
 // Event listeners
+window.addEventListener('load', () => {
+  console.log(fetchedPromises)
+  fetchedPromises().then(data => {
+    apiUsers = data[0].users;
+    apiRecipes = data[1].recipes;
+    apiIngredients = data[2].ingredients;
+    currentUser = getRandomUser(apiUsers)
+    webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
+    searchBarInput.placeholder = "Search 'all recipes' by name"
+    displayedRecipes = apiRecipes;
+    displayRecipeCards(displayedRecipes)
+  })
+})
+
 recipeCardSection.addEventListener('click', (event) => {
   const selectedRecipe = event.target.closest('article');
   displayModal(selectedRecipe);
@@ -37,7 +50,7 @@ closeButton.addEventListener('click', (event) => {
 })
 
 allRecipesButton.addEventListener('click', (event) => {
-  displayedRecipes = recipeData
+  displayedRecipes = apiRecipes
   displayRecipeCards(displayedRecipes)
   searchBarInput.placeholder = "Search 'all recipes' by name..."
   allRecipesButton.style.backgroundColor = "grey";
@@ -77,14 +90,6 @@ tagSelectorButton.addEventListener('click', (event) => {
 })
 
 // Functions
-function onLoad() {
-  displayedRecipes = recipeData
-  displayRecipeCards(displayedRecipes)
-  currentUser = getRandomUser(usersData)
-  webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
-  searchBarInput.placeholder = "Search 'all recipes' by name"
-};
-
 function closeModal(){
   recipeModal.classList.add('hidden');
   overlay.style.display = 'none';
@@ -124,7 +129,7 @@ function displayRecipeCards(recipes) {
 function updateCurrentRecipe(recipe) {
   let selectedRecipeName = recipe.querySelector('.recipe-title').textContent;
   currentRecipe = '';
-  recipeData.forEach(recipe => {
+  apiRecipes.forEach(recipe => {
     if (selectedRecipeName === recipe.name) {
       currentRecipe = recipe;
     }
@@ -138,30 +143,29 @@ function displayModal(recipe) {
   const totalCost = document.querySelector('.total-cost');
   updateCurrentRecipe(recipe)
   modalTitle.innerText = currentRecipe.name;
-  const clickedRecipeIngredients = listRecipeIngredients(currentRecipe, ingredientsData).join('<br>')
+  const clickedRecipeIngredients = listRecipeIngredients(currentRecipe, apiIngredients).join('<br>')
   ingredientsList.innerHTML = clickedRecipeIngredients
   const clickedRecipeInstructions = getInstructions(currentRecipe);
   instructionsList.innerHTML = clickedRecipeInstructions;
-  const clickedRecipeCost = calculateRecipeCost(currentRecipe, ingredientsData)
+  const clickedRecipeCost = calculateRecipeCost(currentRecipe, apiIngredients)
   totalCost.innerText = clickedRecipeCost;
   recipeModal.classList.remove('hidden');
   overlay.style.display = 'block';
 }
 
 function displayRecipesByTag(recipes, tag) {
-  const taggedRecipes = filterByTag(recipes, tag)
+  let taggedRecipes = filterByTag(recipes, tag)
   displayRecipeCards(taggedRecipes)
 }
 
 function displayRecipesByName(recipes, name) {
-  const namedRecipes = filterByName(recipes, name)
+  let namedRecipes = filterByName(recipes, name)
   displayRecipeCards(namedRecipes)
 }
 
 export {
   displayModal,
   displayRecipeCards,
-  onLoad,
   displayRecipesByTag,
   displayRecipesByName,
   updateCurrentRecipe,
