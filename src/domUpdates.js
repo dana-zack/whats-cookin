@@ -35,7 +35,8 @@ window.addEventListener('load', () => {
     currentUser = getRandomUser(apiUsers)
     webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
     searchBarInput.placeholder = "Search 'all recipes' by name"
-    displayRecipeCards(apiRecipes)
+    displayedRecipes = apiRecipes;
+    displayRecipeCards(displayedRecipes)
   })
 })
 
@@ -95,31 +96,35 @@ function closeModal(){
 }
 
 function displayRecipeCards(recipes) {
-  console.log(recipes)
   recipeCardSection.innerHTML = '';
-  recipes.forEach(recipe => {
-    const card = document.createElement('article');
-    card.classList.add('recipe-card');
-    const title = document.createElement('h2');
-    title.classList.add('recipe-title')
-    title.textContent = recipe.name;
-    const image = document.createElement('img');
-    image.classList.add('recipe-image');
-    image.src = recipe.image;
-    image.alt = recipe.name;
-    const content = document.createElement('p');
-    content.classList.add('recipe-content');
-    content.textContent = `${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps`;
-    const id = document.createElement('p')
-    id.classList.add('recipe-id');
-    id.classList.add('hidden');
-    id.textContent = recipe.id
-    card.appendChild(title);
-    card.appendChild(image);
-    card.appendChild(content);
-    card.appendChild(id);
-    recipeCardSection.appendChild(card);
-  })
+  if (recipes.length === 0) {
+    recipeCardSection.innerHTML = `<p class="no-results-message">No results found</p>`
+  } else {
+    recipeCardSection.innerHTML = '';
+    recipes.forEach(recipe => {
+      const card = document.createElement('article');
+      card.classList.add('recipe-card');
+      const title = document.createElement('h2');
+      title.classList.add('recipe-title')
+      title.textContent = recipe.name;
+      const image = document.createElement('img');
+      image.classList.add('recipe-image');
+      image.src = recipe.image;
+      image.alt = recipe.name;
+      const content = document.createElement('p');
+      content.classList.add('recipe-content');
+      content.textContent = `${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps`;
+      const id = document.createElement('p')
+      id.classList.add('recipe-id');
+      id.classList.add('hidden');
+      id.textContent = recipe.id
+      card.appendChild(title);
+      card.appendChild(image);
+      card.appendChild(content);
+      card.appendChild(id);
+      recipeCardSection.appendChild(card);
+  });
+  }
 }
 
 function updateCurrentRecipe(recipe) {

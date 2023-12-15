@@ -27,4 +27,4 @@ function fetchIngredients() {
 
 const fetchedPromises = () => Promise.all([fetchUsers(), fetchRecipes(), fetchIngredients()])
 
-export { fetchUsers, fetchRecipes, fetchIngredients, fetchedPromises }
+export { fetchedPromises }
