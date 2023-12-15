@@ -2,24 +2,13 @@ import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, 
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
 import { fetchedPromises } from "./apiCalls.js";
 
+// Variables
 let apiUsers;
 let apiRecipes;
 let apiIngredients;
 let currentUser;
 let displayedRecipes;
 let currentRecipe;
-
-
-
-
-
-
-
-
-
-// Variables
-
-
 
 // Selectors
 const recipeCardSection = document.querySelector('.recipe-card-section');
@@ -161,22 +150,18 @@ function displayModal(recipe) {
 }
 
 function displayRecipesByTag(recipes, tag) {
-  const taggedRecipes = filterByTag(recipes, tag)
+  let taggedRecipes = filterByTag(recipes, tag)
   displayRecipeCards(taggedRecipes)
 }
 
 function displayRecipesByName(recipes, name) {
-  const namedRecipes = filterByName(recipes, name)
+  let namedRecipes = filterByName(recipes, name)
   displayRecipeCards(namedRecipes)
 }
 
 export {
   displayModal,
   displayRecipeCards,
-  // onLoad,
-  // getUsers,
-  // getIngredients,
-  // getRecipes,
   displayRecipesByTag,
   displayRecipesByName,
   updateCurrentRecipe,
