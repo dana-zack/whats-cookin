@@ -1,4 +1,4 @@
-const ingredients = [
+export const ingredients = [
   {
     "id": 1,
     "name": "strawberries",
@@ -26,7 +26,7 @@ const ingredients = [
   }
 ];
 
-const recipes = [
+export const recipes = [
   {
     "id": 500,
     "image": "https://www.iheartnaptime.net/wp-content/uploads/2020/06/berry-fruit-salad.jpg",
@@ -160,7 +160,7 @@ const recipes = [
   },
 ];
 
-const users = [
+export const users = [
   {
     "name": "Laura Long",
     "id": 1,
@@ -178,7 +178,7 @@ const users = [
   }
 ];
 
-const recipe1 = {
+export const recipe1 = {
   "id": 500,
   "image": "https://www.iheartnaptime.net/wp-content/uploads/2020/06/berry-fruit-salad.jpg",
   "ingredients": [
@@ -226,7 +226,7 @@ const recipe1 = {
   ]
 };
 
-const recipe2 = {
+export const recipe2 = {
   "id": 600,
   "image": "https://imgs.search.brave.com/Qt3vXLyaEP9ZcX_RC_Vn58VR0d0Y1slPiglu9cCRtT0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMwMS5ueXQuY29t/L2ltYWdlcy8yMDE5/LzA4LzEwL2Rpbmlu/Zy9hdy1zcGljeS13/YXRlcm1lbG9uLXNh/bGFkL2F3LXNwaWN5/LXdhdGVybWVsb24t/c2FsYWQtYXJ0aWNs/ZUxhcmdlLmpwZz93/PTEyODAmcT03NQ",
   "ingredients": [
@@ -270,7 +270,7 @@ const recipe2 = {
   ]
 };
 
-const recipe3 = {
+export const recipe3 = {
   "id": 700,
   "image": "https://www.brightsideorganics.com/cdn/shop/articles/Vanilla_Ice_Cream_Strawberries.png?v=1656796505",
   "ingredients": [
@@ -312,7 +312,7 @@ const recipe3 = {
   ]
 };
 
-const recipesWithStrawberries = [
+export const recipesWithStrawberries = [
   {
     "id": 500,
     "image": "https://www.iheartnaptime.net/wp-content/uploads/2020/06/berry-fruit-salad.jpg",
@@ -403,7 +403,7 @@ const recipesWithStrawberries = [
   },
 ];
 
-const icecreamRecipe = [
+export const icecreamRecipe = [
   {
     "id": 700,
     "image": "https://www.brightsideorganics.com/cdn/shop/articles/Vanilla_Ice_Cream_Strawberries.png?v=1656796505",
@@ -447,17 +447,6 @@ const icecreamRecipe = [
   }
 ];
 
-const instructions1 = [
-  {
-    "instruction": "Cut up the pineapple and watermelon",
-    "number": 1
-  },
-  {
-    "instruction": "Mix the fruit in a large bowl until evenly dispersed.",
-    "number": 2
-  },
-  {
-    "instruction": "Enjoy your tropical salad!",
-    "number": 3
-  }
-];
+export const instructions1 = '1. Rinse the strawberries and blackberries.<br><br>2. Add both berries to a large bowl<br><br>3. Mix until evenly dispersed.<br><br>4. Enjoy!';
+
+export const instructions2 = '1. Cut up the pineapple and watermelon<br><br>2. Mix the fruit in a large bowl until evenly dispersed.<br><br>3. Enjoy your tropical salad!';
