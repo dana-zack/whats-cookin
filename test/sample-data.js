@@ -178,6 +178,12 @@ export const users = [
   }
 ];
 
+export const user = {
+    "name": "Dana Zack",
+    "id": 2,
+    "recipesToCook": []
+};
+
 export const recipe1 = {
   "id": 500,
   "image": "https://www.iheartnaptime.net/wp-content/uploads/2020/06/berry-fruit-salad.jpg",

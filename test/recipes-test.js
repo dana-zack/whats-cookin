@@ -91,8 +91,6 @@ describe('getInstructions', () => {
   it('Should return formatted instructions for a given recipe', () => {
       const recipe1Instructions = getInstructions(recipe1);
       const recipe2Instructions = getInstructions(recipe2);
-      console.log(recipe1Instructions)
-      console.log(recipe2Instructions)
       expect(recipe1Instructions).to.deep.equal(instructions1);
       expect(recipe2Instructions).to.deep.equal(instructions2);
   });
