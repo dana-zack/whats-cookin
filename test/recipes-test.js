@@ -396,10 +396,6 @@ describe('Shared Variables For Testing Purposes:', () => {
   //==============================================================================
   
   describe('filterByTag', () => {
-    it('Should be a function', () => {
-      expect(filterByTag).to.be.a('function');
-    });
-
     it('Should return a filtered list of recipes based on a tag', () => {
       const recipesByTag = filterByTag(recipes, "strawberry");
       expect(recipesByTag).to.deep.equal(recipesWithStrawberries);
@@ -418,10 +414,6 @@ describe('Shared Variables For Testing Purposes:', () => {
 
   //==============================================================================
   describe('filterByName', () => {
-    it('Should be a function', () => {
-      expect(filterByName).to.be.a('function');
-    });
-
     it('Should return a filtered list of recipes based on a full name input', () => {
       const recipesByName = filterByName(recipes, "Vanilla Icecream With Strawberries");
       expect(recipesByName).to.deep.equal(icecreamRecipe);
@@ -450,10 +442,6 @@ describe('Shared Variables For Testing Purposes:', () => {
 
   //===============================================================
   describe('listRecipeIngredients', () => {
-    it('Should be a function', () => {
-      expect(listRecipeIngredients).to.be.a('function');
-    });
-
     it('Should list the name, amount, and units of each ingredient needed for a specific recipe', () => {
         const recipe1Ingredients = listRecipeIngredients(recipe1, ingredients);
         const recipe2Ingredients = listRecipeIngredients(recipe2, ingredients);
@@ -464,10 +452,6 @@ describe('Shared Variables For Testing Purposes:', () => {
 
   // ===============================================================
   describe('calculateRecipeCost', () => {
-    it('Should be a function', () => {
-      expect(calculateRecipeCost).to.be.a('function');
-    });
-
     it("Should calculate the cost of a given recipe's ingredients", () => {
         const totalCost = calculateRecipeCost(recipe1, ingredients);
         expect(totalCost).to.equal('$12.50');
@@ -476,10 +460,6 @@ describe('Shared Variables For Testing Purposes:', () => {
 
   // ===============================================================
   describe('getInstructions', () => {
-    it('Should be a function', () => {
-      expect(getInstructions).to.be.a('function');
-    });
-
     it('Should return formatted instructions for a given recipe', () => {
         const recipe1Instructions = getInstructions(recipe1);
         const recipe2Instructions = getInstructions(recipe2);
