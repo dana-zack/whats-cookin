@@ -456,10 +456,6 @@ describe('Shared Variables For Testing Purposes:', () => {
   //==============================================================================
   // Allow a user to add a recipe to their recipesToCook list
   describe('addFavoriteRecipe', () => {
-    it('Should be a function', () => {
-      expect(addFavoriteRecipe).to.be.a('function');
-    });
-
     it('Should allow a user to add a recipe to their recipesToCook list', () => {
       const updatedUser = addFavoriteRecipe(user, recipe1)
       expect(updatedUser).to.deep.equal({
@@ -483,10 +479,6 @@ describe('Shared Variables For Testing Purposes:', () => {
   //==============================================================================
   // Allow a user to remove a recipe from  their recipesToCook list
   describe('removeFavoriteRecipe', () => {
-    it('Should be a function', () => {
-      expect(removeFavoriteRecipe).to.be.a('function');
-    });
-
     it('Should allow a user to remove a recipe from their recipesToCook list', () => {
       addFavoriteRecipe(user, recipe1)
       addFavoriteRecipe(user, recipe2)
