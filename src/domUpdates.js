@@ -1,9 +1,8 @@
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from './recipes.js';
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
-import { fetchedPromises } from "./apiCalls.js";
+import { getData } from "./apiCalls.js";
 
 // Variables
-let apiUsers;
 let apiRecipes;
 let apiIngredients;
 let currentUser;
@@ -25,19 +24,37 @@ const tagSelectorButton = document.querySelector('.tag-selector-button')
 const webPageTitle = document.querySelector('.web-page-title')
 const removeFromFavoritesButton = document.getElementById('delete-button')
 
-// Event listeners
-window.addEventListener('load', () => {
-  console.log(fetchedPromises)
-  fetchedPromises().then(data => {
-    apiUsers = data[0].users;
-    apiRecipes = data[1].recipes;
-    apiIngredients = data[2].ingredients;
-    currentUser = getRandomUser(apiUsers)
-    webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
-    searchBarInput.placeholder = "Search 'all recipes' by name"
-    displayedRecipes = apiRecipes;
+// GETs
+function assignRecipes() {
+  getData("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes")
+  .then(recipes => {
+    apiRecipes = recipes.recipes
+    displayedRecipes = apiRecipes
     displayRecipeCards(displayedRecipes)
   })
+}
+
+function assignCurrentUser() { 
+  getData("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users")
+  .then(users => {
+    currentUser = getRandomUser(users.users);
+		webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
+  })
+}
+
+function assignIngredients() {
+  getData("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients")
+  .then(ingredients => {
+    apiIngredients = ingredients.ingredients;
+  })
+}
+
+// Event listeners
+window.addEventListener('load', () => {
+  assignRecipes()
+	assignCurrentUser()
+	assignIngredients()
+	searchBarInput.placeholder = "Search 'all recipes' by name"
 })
 
 recipeCardSection.addEventListener('click', (event) => {
@@ -76,7 +93,9 @@ removeFromFavoritesButton.addEventListener('click', (event) => {
 })
 
 heartButton.addEventListener('click', (event) => {
+  event.target.style.color = 'red' 
   addFavoriteRecipe(currentUser, currentRecipe)
+  console.log()
 })
 
 searchButton.addEventListener('click', (event) => {
@@ -101,33 +120,19 @@ function displayRecipeCards(recipes) {
     recipeCardSection.innerHTML = `<p class="no-results-message">No results found</p>`
   } else {
   recipes.forEach(recipe => {
-    const card = document.createElement('article');
-    card.classList.add('recipe-card');
-    const title = document.createElement('h2');
-    title.classList.add('recipe-title');
-    title.textContent = recipe.name;
-    const image = document.createElement('img');
-    image.classList.add('recipe-image');
-    image.src = recipe.image;
-    image.alt = recipe.name;
-    const content = document.createElement('p');
-    content.classList.add('recipe-content');
-    content.textContent = `${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps`;
-    const id = document.createElement('p')
-    id.classList.add('recipe-id');
-    id.classList.add('hidden');
-    id.textContent = recipe.id
-    card.appendChild(title);
-    card.appendChild(image);
-    card.appendChild(content);
-    card.appendChild(id);
-    recipeCardSection.appendChild(card);
-  })
-}
+      recipeCardSection.innerHTML  += `
+      <article class="recipe-card">
+        <h2 class="recipe-title">${recipe.name}</h2> 
+        <img class="recipe-image" src="${recipe.image}" alt="image of ${recipe.name}">
+        <p class="recipe-content">${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps</p>
+        <p class="recipe-id hidden">${recipe.id}</p>
+      </article>`
+    })
+  }
 }
 
 function updateCurrentRecipe(recipe) {
-  let selectedRecipeName = recipe.querySelector('.recipe-title').textContent;
+  let selectedRecipeName = recipe.querySelector('.recipe-title').innerText;
   currentRecipe = '';
   apiRecipes.forEach(recipe => {
     if (selectedRecipeName === recipe.name) {

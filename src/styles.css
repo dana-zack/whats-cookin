@@ -215,13 +215,19 @@ h2 {
 }
 
 #heart-button {
-  color: red;
+  color: grey;
+  font-size: x-large;
+  transition: color 0.3s ease;
   width: 35px;
   height: 35px;
   border-radius: 20%;
 }
 
-#delete-button {
+#close-button {
+  font-size: x-large;
+}
+
+#remove-button {
   height: 35px;
   width: 150px;
 }
