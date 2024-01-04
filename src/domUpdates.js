@@ -1,6 +1,7 @@
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from './recipes.js';
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
 import { fetchedPromises } from "./apiCalls.js";
+import { render } from 'sass';
 
 // Variables
 let apiUsers;
@@ -23,7 +24,7 @@ const searchBarInput = document.querySelector('.search-input');
 const dropDown = document.getElementById('tag-selector');
 const tagSelectorButton = document.querySelector('.tag-selector-button')
 const webPageTitle = document.querySelector('.web-page-title')
-const removeFromFavoritesButton = document.getElementById('delete-button')
+const removeFromFavoritesButton = document.getElementById('remove-button')
 
 // Event listeners
 window.addEventListener('load', () => {
@@ -76,7 +77,9 @@ removeFromFavoritesButton.addEventListener('click', (event) => {
 })
 
 heartButton.addEventListener('click', (event) => {
+  event.target.style.color = 'red' 
   addFavoriteRecipe(currentUser, currentRecipe)
+  console.log()
 })
 
 searchButton.addEventListener('click', (event) => {
