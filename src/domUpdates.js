@@ -49,8 +49,7 @@ function assignRecipes() {
 function assignCurrentUser() { 
   getData("http://localhost:3001/api/v1/users")
   .then(users => {
-    currentUser = users.users[10]
-    // currentUser = getRandomUser(users.users);
+    currentUser = getRandomUser(users.users);
 		webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
   })
 }
