@@ -1,4 +1,4 @@
-import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from './recipes.js';
+import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions, rateRecipe } from './recipes.js';
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
 import { getData, postRecipe } from "./apiCalls.js";
 
@@ -23,6 +23,7 @@ const dropDown = document.getElementById('tag-selector');
 const tagSelectorButton = document.querySelector('.tag-selector-button')
 const webPageTitle = document.querySelector('.web-page-title')
 const removeFromFavoritesButton = document.getElementById('remove-button')
+const recipeImage = document.querySelector('.modal-recipe-image')
 
 // GETs
 function getCurrentUsersFavRecipes() {
@@ -137,10 +138,9 @@ function displayRecipeCards(recipes) {
     recipes.forEach(recipe => {
       recipeCardSection.innerHTML  += `
       <article class="recipe-card">
-      <h2 class="recipe-title">${recipe.name}</h2> 
-      <img class="recipe-image" src="${recipe.image}" alt="image of ${recipe.name}">
-      <p class="recipe-content">${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps</p>
-      <p class="recipe-id hidden">${recipe.id}</p>
+        <h2 class="recipe-title">${recipe.name}</h2> 
+        <img class="recipe-image" src="${recipe.image}" alt="image of ${recipe.name}">
+        <p class="recipe-rating">Rating: none</p>
       </article>`
     })
   }
@@ -161,6 +161,7 @@ function displayModal(recipe) {
   const ingredientsList = document.querySelector('.ingredients-list');
   const instructionsList = document.querySelector('.instructions-list');
   const totalCost = document.querySelector('.total-cost');
+  const recipeImage = document.querySelector('.modal-recipe-image')
   updateCurrentRecipe(recipe)
   modalTitle.innerText = currentRecipe.name;
   const clickedRecipeIngredients = listRecipeIngredients(currentRecipe, apiIngredients).join('<br>')
@@ -169,6 +170,7 @@ function displayModal(recipe) {
   instructionsList.innerHTML = clickedRecipeInstructions;
   const clickedRecipeCost = calculateRecipeCost(currentRecipe, apiIngredients)
   totalCost.innerText = clickedRecipeCost;
+  recipeImage.src = currentRecipe.image;
   recipeModal.classList.remove('hidden');
   overlay.style.display = 'block';
   

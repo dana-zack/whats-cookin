@@ -58,16 +58,35 @@
             </button>
           </div>
         </header>
-        <h3 class="ingredients-title">Ingredients</h3>
-        <ul class="ingredients-list">
-          <!-- Ingredients populate here -->
-        </ul>
-        <h3 class="instructions-title">Instructions</h3>
-        <ol class="instructions-list">
-          <!-- Instructions will be added here -->
-        </ol>
-        <h3 class="total-cost-title">Total Cost</h3>
-        <p class="total-cost"> <!-- Total cost will populate here --> </p>
+        <div class="left-and-right-modal">
+          <section class="left-modal">
+            <h3 class="rating-title">Rating</h3>
+            <section class="star-buttons">
+              <p class="select-rating">Select rating:</p>
+              <button class="star-button" id="1-star">⭐️</button>
+              <button class="star-button" id="2-star">⭐️</button>
+              <button class="star-button" id="3-star">⭐️</button>
+              <button class="star-button" id="4-star">⭐️</button>
+              <button class="star-button" id="5-star">⭐️</button>
+              <p class="selected-rating">(not yet rated)</p>
+            </section>
+            <h3 class="total-cost-title">Total Cost</h3>
+            <p class="total-cost"> <!-- Total cost will populate here --> </p>
+            <h3 class="ingredients-title">Ingredients</h3>
+            <ul class="ingredients-list">
+              <!-- Ingredients populate here -->
+            </ul>
+          </section>
+          <section class="right-modal">
+            <img class="modal-recipe-image" alt="recipe image">
+          </section>
+        </div>
+        <section class="bottom-modal">
+          <h3 class="instructions-title">Instructions</h3>
+          <ol class="instructions-list">
+            <!-- Instructions will be added here -->
+          </ol>
+        </section>
       </article>
     </section>
     </body>

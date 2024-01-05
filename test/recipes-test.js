@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from '../src/recipes';
-import { ingredients, recipes, recipe1, recipe2, recipesWithStrawberries, icecreamRecipe, instructions1, instructions2 } from '../test/sample-data'
+import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions, rateRecipe } from '../src/recipes';
+import { ingredients, recipes, recipe1, recipe2, recipesWithStrawberries, icecreamRecipe, instructions1, instructions2, recipe1Rated8, recipe1Rated5, recipe2Rated2 } from '../test/sample-data'
 
   //==============================================================================
   //==============================================================================

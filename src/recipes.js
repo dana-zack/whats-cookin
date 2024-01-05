@@ -49,10 +49,16 @@ function getInstructions(recipe) {
   return recipeInstructions;
 }
 
+function rateRecipe(recipe, rating) {
+  recipe.rating = rating;
+  return recipe;
+}
+
 module.exports = {
   filterByTag,
   filterByName,
   listRecipeIngredients,
   calculateRecipeCost,
-  getInstructions
+  getInstructions,
+  rateRecipe
 };
