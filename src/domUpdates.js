@@ -22,7 +22,7 @@ const searchBarInput = document.querySelector('.search-input');
 const dropDown = document.getElementById('tag-selector');
 const tagSelectorButton = document.querySelector('.tag-selector-button')
 const webPageTitle = document.querySelector('.web-page-title')
-const removeFromFavoritesButton = document.getElementById('delete-button')
+const removeFromFavoritesButton = document.getElementById('remove-button')
 
 // GETs
 function assignRecipes() {
@@ -93,8 +93,14 @@ removeFromFavoritesButton.addEventListener('click', (event) => {
 })
 
 heartButton.addEventListener('click', (event) => {
-  addFavoriteRecipe(currentUser, currentRecipe)
-})
+  if (currentUser.recipesToCook.includes(currentRecipe)) {
+    removeFavoriteRecipe(currentUser, currentRecipe);
+  } else {
+    addFavoriteRecipe(currentUser, currentRecipe);
+  }
+  updateHeartButton();
+});
+
 
 searchButton.addEventListener('click', (event) => {
   displayRecipesByName(displayedRecipes, searchBarInput.value)
@@ -117,13 +123,13 @@ function displayRecipeCards(recipes) {
   if (recipes.length === 0) {
     recipeCardSection.innerHTML = `<p class="no-results-message">No results found</p>`
   } else {
-  recipes.forEach(recipe => {
+    recipes.forEach(recipe => {
       recipeCardSection.innerHTML  += `
       <article class="recipe-card">
-        <h2 class="recipe-title">${recipe.name}</h2> 
-        <img class="recipe-image" src="${recipe.image}" alt="image of ${recipe.name}">
-        <p class="recipe-content">${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps</p>
-        <p class="recipe-id hidden">${recipe.id}</p>
+      <h2 class="recipe-title">${recipe.name}</h2> 
+      <img class="recipe-image" src="${recipe.image}" alt="image of ${recipe.name}">
+      <p class="recipe-content">${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps</p>
+      <p class="recipe-id hidden">${recipe.id}</p>
       </article>`
     })
   }
@@ -154,6 +160,16 @@ function displayModal(recipe) {
   totalCost.innerText = clickedRecipeCost;
   recipeModal.classList.remove('hidden');
   overlay.style.display = 'block';
+  
+  updateHeartButton()
+}
+
+function updateHeartButton() {
+  if (currentUser.recipesToCook.includes(currentRecipe)) {
+    heartButton.style.color = 'red';
+  } else {
+    heartButton.style.color = 'grey';
+  }
 }
 
 function displayRecipesByTag(recipes, tag) {

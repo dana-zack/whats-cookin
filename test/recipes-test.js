@@ -2,16 +2,14 @@ import { expect } from 'chai';
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from '../src/recipes';
 import { ingredients, recipes, recipe1, recipe2, recipesWithStrawberries, icecreamRecipe, instructions1, instructions2 } from '../test/sample-data'
 
-//==============================================================================
-describe('filterByTag', () => {
-  it('Should be a function', () => {
-    expect(filterByTag).to.be.a('function');
-  });
-
-  it('Should return a filtered list of recipes based on a tag', () => {
-    const recipesByTag = filterByTag(recipes, "strawberry");
-    expect(recipesByTag).to.deep.equal(recipesWithStrawberries);
-  });
+  //==============================================================================
+  //==============================================================================
+  
+  describe('filterByTag', () => {
+    it('Should return a filtered list of recipes based on a tag', () => {
+      const recipesByTag = filterByTag(recipes, "strawberry");
+      expect(recipesByTag).to.deep.equal(recipesWithStrawberries);
+    });
 
   it('Should return an empty array if no recipes match the tag', () => {
     const recipesByTag = filterByTag(recipes, "blueberry");
@@ -24,16 +22,12 @@ describe('filterByTag', () => {
   });
 });
 
-//==============================================================================
-describe('filterByName', () => {
-  it('Should be a function', () => {
-    expect(filterByName).to.be.a('function');
-  });
-
-  it('Should return a filtered list of recipes based on a full name input', () => {
-    const recipesByName = filterByName(recipes, "Vanilla Icecream With Strawberries");
-    expect(recipesByName).to.deep.equal(icecreamRecipe);
-  });
+  //==============================================================================
+  describe('filterByName', () => {
+    it('Should return a filtered list of recipes based on a full name input', () => {
+      const recipesByName = filterByName(recipes, "Vanilla Icecream With Strawberries");
+      expect(recipesByName).to.deep.equal(icecreamRecipe);
+    });
 
   it('Should return a filtered list of recipes based on a partial name input', () => {
     const recipesByName = filterByName(recipes, "Icecream");
@@ -56,42 +50,30 @@ describe('filterByName', () => {
   });
 });
 
-//===============================================================
-describe('listRecipeIngredients', () => {
-  it('Should be a function', () => {
-    expect(listRecipeIngredients).to.be.a('function');
-  });
+  //===============================================================
+  describe('listRecipeIngredients', () => {
+    it('Should list the name, amount, and units of each ingredient needed for a specific recipe', () => {
+        const recipe1Ingredients = listRecipeIngredients(recipe1, ingredients);
+        const recipe2Ingredients = listRecipeIngredients(recipe2, ingredients);
+        expect(recipe1Ingredients).to.deep.equal([ 'strawberries | 2 c', 'blackberries | 1.5 c' ]);
+        expect(recipe2Ingredients).to.deep.equal([ 'watermelon | 1 c', 'pineapple | 1 c' ]);
+    });
+  })
 
-  it('Should list the name, amount, and units of each ingredient needed for a specific recipe', () => {
-      const recipe1Ingredients = listRecipeIngredients(recipe1, ingredients);
-      const recipe2Ingredients = listRecipeIngredients(recipe2, ingredients);
-      expect(recipe1Ingredients).to.deep.equal([ 'strawberries | 2 c', 'blackberries | 1.5 c' ]);
-      expect(recipe2Ingredients).to.deep.equal([ 'watermelon | 1 c', 'pineapple | 1 c' ]);
-  });
-})
+  // ===============================================================
+  describe('calculateRecipeCost', () => {
+    it("Should calculate the cost of a given recipe's ingredients", () => {
+        const totalCost = calculateRecipeCost(recipe1, ingredients);
+        expect(totalCost).to.equal('$12.50');
+    });
+  })
 
-// ===============================================================
-describe('calculateRecipeCost', () => {
-  it('Should be a function', () => {
-    expect(calculateRecipeCost).to.be.a('function');
+  // ===============================================================
+  describe('getInstructions', () => {
+    it('Should return formatted instructions for a given recipe', () => {
+        const recipe1Instructions = getInstructions(recipe1);
+        const recipe2Instructions = getInstructions(recipe2);
+        expect(recipe1Instructions).to.deep.equal(instructions1);
+        expect(recipe2Instructions).to.deep.equal(instructions2);
+    });
   });
-
-  it("Should calculate the cost of a given recipe's ingredients", () => {
-      const totalCost = calculateRecipeCost(recipe1, ingredients);
-      expect(totalCost).to.equal('$12.50');
-  });
-})
-
-// ===============================================================
-describe('getInstructions', () => {
-  it('Should be a function', () => {
-    expect(getInstructions).to.be.a('function');
-  });
-
-  it('Should return formatted instructions for a given recipe', () => {
-      const recipe1Instructions = getInstructions(recipe1);
-      const recipe2Instructions = getInstructions(recipe2);
-      expect(recipe1Instructions).to.deep.equal(instructions1);
-      expect(recipe2Instructions).to.deep.equal(instructions2);
-  });
-})
