@@ -25,6 +25,18 @@ const webPageTitle = document.querySelector('.web-page-title')
 const removeFromFavoritesButton = document.getElementById('remove-button')
 
 // GETs
+function getCurrentUsersFavRecipes() {
+  getData('http://localhost:3001/api/v1/users')
+    .then(usersObj => {
+      const user = usersObj.users.find(user => user.id === currentUser.id)
+      let recipesToCook = user.recipesToCook.map(id => {
+        return apiRecipes.find(recipe => recipe.id === id)
+      })
+      displayedRecipes = recipesToCook
+      displayRecipeCards(displayedRecipes)
+    })
+}
+
 function assignRecipes() {
   getData("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes")
   .then(recipes => {
@@ -35,7 +47,7 @@ function assignRecipes() {
 }
 
 function assignCurrentUser() { 
-  getData("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users")
+  getData("http://localhost:3001/api/v1/users")
   .then(users => {
     currentUser = getRandomUser(users.users);
 		webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
@@ -77,8 +89,7 @@ allRecipesButton.addEventListener('click', (event) => {
 })
 
 favoriteRecipesButton.addEventListener('click', (event) => {
-  displayedRecipes = currentUser.recipesToCook
-  displayRecipeCards(displayedRecipes)
+  getCurrentUsersFavRecipes()
   searchBarInput.placeholder = "Search 'favorite recipes' by name..."
   allRecipesButton.style.backgroundColor = "white";
   favoriteRecipesButton.style.backgroundColor = "grey";
