@@ -1,6 +1,6 @@
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions, rateRecipe } from './recipes.js';
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
-import { getData } from "./apiCalls.js";
+import { getData, postRecipe } from "./apiCalls.js";
 
 // Variables
 let apiRecipes;
@@ -22,10 +22,22 @@ const searchBarInput = document.querySelector('.search-input');
 const dropDown = document.getElementById('tag-selector');
 const tagSelectorButton = document.querySelector('.tag-selector-button')
 const webPageTitle = document.querySelector('.web-page-title')
-const removeFromFavoritesButton = document.getElementById('delete-button')
+const removeFromFavoritesButton = document.getElementById('remove-button')
 const recipeImage = document.querySelector('.modal-recipe-image')
 
 // GETs
+function getCurrentUsersFavRecipes() {
+  getData('http://localhost:3001/api/v1/users')
+    .then(usersObj => {
+      const user = usersObj.users.find(user => user.id === currentUser.id)
+      let recipesToCook = user.recipesToCook.map(id => {
+        return apiRecipes.find(recipe => recipe.id === id)
+      })
+      displayedRecipes = recipesToCook
+      displayRecipeCards(displayedRecipes)
+    })
+}
+
 function assignRecipes() {
   getData("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes")
   .then(recipes => {
@@ -36,7 +48,7 @@ function assignRecipes() {
 }
 
 function assignCurrentUser() { 
-  getData("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users")
+  getData("http://localhost:3001/api/v1/users")
   .then(users => {
     currentUser = getRandomUser(users.users);
 		webPageTitle.innerText = `What's Cookin, ${currentUser.name}?`
@@ -78,8 +90,7 @@ allRecipesButton.addEventListener('click', (event) => {
 })
 
 favoriteRecipesButton.addEventListener('click', (event) => {
-  displayedRecipes = currentUser.recipesToCook
-  displayRecipeCards(displayedRecipes)
+  getCurrentUsersFavRecipes()
   searchBarInput.placeholder = "Search 'favorite recipes' by name..."
   allRecipesButton.style.backgroundColor = "white";
   favoriteRecipesButton.style.backgroundColor = "grey";
@@ -94,8 +105,14 @@ removeFromFavoritesButton.addEventListener('click', (event) => {
 })
 
 heartButton.addEventListener('click', (event) => {
-  addFavoriteRecipe(currentUser, currentRecipe)
-})
+  if (currentUser.recipesToCook.includes(currentRecipe)) {
+    removeFavoriteRecipe(currentUser, currentRecipe);
+  } else {
+    postRecipe();
+  }
+  updateHeartButton();
+});
+
 
 searchButton.addEventListener('click', (event) => {
   displayRecipesByName(displayedRecipes, searchBarInput.value)
@@ -118,7 +135,7 @@ function displayRecipeCards(recipes) {
   if (recipes.length === 0) {
     recipeCardSection.innerHTML = `<p class="no-results-message">No results found</p>`
   } else {
-  recipes.forEach(recipe => {
+    recipes.forEach(recipe => {
       recipeCardSection.innerHTML  += `
       <article class="recipe-card">
         <h2 class="recipe-title">${recipe.name}</h2> 
@@ -156,6 +173,16 @@ function displayModal(recipe) {
   recipeImage.src = currentRecipe.image;
   recipeModal.classList.remove('hidden');
   overlay.style.display = 'block';
+  
+  updateHeartButton()
+}
+
+function updateHeartButton() {
+  if (currentUser.recipesToCook.includes(currentRecipe)) {
+    heartButton.style.color = 'red';
+  } else {
+    heartButton.style.color = 'grey';
+  }
 }
 
 function displayRecipesByTag(recipes, tag) {
@@ -174,5 +201,8 @@ export {
   displayRecipesByTag,
   displayRecipesByName,
   updateCurrentRecipe,
-  closeModal
+  closeModal,
+  currentUser,
+  currentRecipe,
+  recipeCardSection,
 }
