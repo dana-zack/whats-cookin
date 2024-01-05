@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from '../src/recipes';
-import { ingredients, recipes, recipe1, recipe2, recipesWithStrawberries, icecreamRecipe, instructions1, instructions2 } from '../test/sample-data'
+import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions, rateRecipe } from '../src/recipes';
+import { ingredients, recipes, recipe1, recipe2, recipesWithStrawberries, icecreamRecipe, instructions1, instructions2, recipe1Rated8, recipe1Rated5, recipe2Rated2 } from '../test/sample-data'
 
 //==============================================================================
 describe('filterByTag', () => {
@@ -63,10 +63,10 @@ describe('listRecipeIngredients', () => {
   });
 
   it('Should list the name, amount, and units of each ingredient needed for a specific recipe', () => {
-      const recipe1Ingredients = listRecipeIngredients(recipe1, ingredients);
-      const recipe2Ingredients = listRecipeIngredients(recipe2, ingredients);
-      expect(recipe1Ingredients).to.deep.equal([ 'strawberries | 2 c', 'blackberries | 1.5 c' ]);
-      expect(recipe2Ingredients).to.deep.equal([ 'watermelon | 1 c', 'pineapple | 1 c' ]);
+    const recipe1Ingredients = listRecipeIngredients(recipe1, ingredients);
+    const recipe2Ingredients = listRecipeIngredients(recipe2, ingredients);
+    expect(recipe1Ingredients).to.deep.equal([ 'strawberries | 2 c', 'blackberries | 1.5 c' ]);
+    expect(recipe2Ingredients).to.deep.equal([ 'watermelon | 1 c', 'pineapple | 1 c' ]);
   });
 })
 
@@ -77,8 +77,8 @@ describe('calculateRecipeCost', () => {
   });
 
   it("Should calculate the cost of a given recipe's ingredients", () => {
-      const totalCost = calculateRecipeCost(recipe1, ingredients);
-      expect(totalCost).to.equal('$12.50');
+    const totalCost = calculateRecipeCost(recipe1, ingredients);
+    expect(totalCost).to.equal('$12.50');
   });
 })
 
@@ -89,9 +89,26 @@ describe('getInstructions', () => {
   });
 
   it('Should return formatted instructions for a given recipe', () => {
-      const recipe1Instructions = getInstructions(recipe1);
-      const recipe2Instructions = getInstructions(recipe2);
-      expect(recipe1Instructions).to.deep.equal(instructions1);
-      expect(recipe2Instructions).to.deep.equal(instructions2);
+    const recipe1Instructions = getInstructions(recipe1);
+    const recipe2Instructions = getInstructions(recipe2);
+    expect(recipe1Instructions).to.deep.equal(instructions1);
+    expect(recipe2Instructions).to.deep.equal(instructions2);
   });
 })
+
+//==============================================================================
+describe('rateRecipe', () => {
+  it('Should allow a user to rate a recipe', () => {
+    rateRecipe(recipe1, 8)
+    rateRecipe(recipe2, 2)
+    expect(recipe1).to.deep.equal(recipe1Rated8);
+    expect(recipe2).to.deep.equal(recipe2Rated2);
+  });
+
+  it('Should allow a user to assign a new rating to a previously rated recipe', () => {
+    rateRecipe(recipe1, 8)
+    expect(recipe1).to.deep.equal(recipe1Rated8);
+    rateRecipe(recipe1, 5)
+    expect(recipe1).to.deep.equal(recipe1Rated5);
+  });
+});
