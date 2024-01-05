@@ -1,6 +1,6 @@
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from './recipes.js';
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
-import { getData } from "./apiCalls.js";
+import { getData, postRecipe } from "./apiCalls.js";
 
 // Variables
 let apiRecipes;
@@ -96,7 +96,7 @@ heartButton.addEventListener('click', (event) => {
   if (currentUser.recipesToCook.includes(currentRecipe)) {
     removeFavoriteRecipe(currentUser, currentRecipe);
   } else {
-    addFavoriteRecipe(currentUser, currentRecipe);
+    postRecipe();
   }
   updateHeartButton();
 });
@@ -188,5 +188,8 @@ export {
   displayRecipesByTag,
   displayRecipesByName,
   updateCurrentRecipe,
-  closeModal
+  closeModal,
+  currentUser,
+  currentRecipe,
+  recipeCardSection,
 }
