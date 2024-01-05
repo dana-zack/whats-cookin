@@ -23,6 +23,7 @@ const dropDown = document.getElementById('tag-selector');
 const tagSelectorButton = document.querySelector('.tag-selector-button')
 const webPageTitle = document.querySelector('.web-page-title')
 const removeFromFavoritesButton = document.getElementById('delete-button')
+const recipeImage = document.querySelector('.modal-recipe-image')
 
 // GETs
 function assignRecipes() {
@@ -143,6 +144,7 @@ function displayModal(recipe) {
   const ingredientsList = document.querySelector('.ingredients-list');
   const instructionsList = document.querySelector('.instructions-list');
   const totalCost = document.querySelector('.total-cost');
+  const recipeImage = document.querySelector('.modal-recipe-image')
   updateCurrentRecipe(recipe)
   modalTitle.innerText = currentRecipe.name;
   const clickedRecipeIngredients = listRecipeIngredients(currentRecipe, apiIngredients).join('<br>')
@@ -151,6 +153,7 @@ function displayModal(recipe) {
   instructionsList.innerHTML = clickedRecipeInstructions;
   const clickedRecipeCost = calculateRecipeCost(currentRecipe, apiIngredients)
   totalCost.innerText = clickedRecipeCost;
+  recipeImage.src = currentRecipe.image;
   recipeModal.classList.remove('hidden');
   overlay.style.display = 'block';
 }
