@@ -1,4 +1,4 @@
-import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions } from './recipes.js';
+import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions, rateRecipe } from './recipes.js';
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
 import { getData } from "./apiCalls.js";
 
@@ -122,8 +122,7 @@ function displayRecipeCards(recipes) {
       <article class="recipe-card">
         <h2 class="recipe-title">${recipe.name}</h2> 
         <img class="recipe-image" src="${recipe.image}" alt="image of ${recipe.name}">
-        <p class="recipe-content">${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps</p>
-        <p class="recipe-id hidden">${recipe.id}</p>
+        <p class="recipe-rating">Rating: none</p>
       </article>`
     })
   }
