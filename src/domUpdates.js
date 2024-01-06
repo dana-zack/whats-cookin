@@ -1,6 +1,6 @@
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions, rateRecipe } from './recipes.js';
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
-import { getData, postRecipe } from "./apiCalls.js";
+import { getData, postRecipe, deleteUserRecipe } from "./apiCalls.js";
 
 // Variables
 let apiRecipes;
@@ -99,18 +99,30 @@ favoriteRecipesButton.addEventListener('click', (event) => {
 })
 
 removeFromFavoritesButton.addEventListener('click', (event) => {
-  removeFavoriteRecipe(currentUser, currentRecipe)
-  closeModal()
-  displayRecipeCards(displayedRecipes)
+  // removeFavoriteRecipe(currentUser, currentRecipe)
+  deleteUserRecipe(currentUser.id, currentRecipe.id);
+  getCurrentUsersFavRecipes();
+  closeModal();
+  displayRecipeCards(displayedRecipes);
 })
 
 heartButton.addEventListener('click', (event) => {
-  if (currentUser.recipesToCook.includes(currentRecipe)) {
+  console.log('current user', currentUser);
+  console.log('current recipe', currentRecipe);
+
+  const matchedRecipe = currentUser.recipesToCook.find(recipe => recipe.id === currentRecipe.id);
+    
+  if (matchedRecipe) {
     removeFavoriteRecipe(currentUser, currentRecipe);
+    deleteUserRecipe();
+    document.getElementById(`${currentRecipe.id}`).style.color = 'grey';
+    // updateHeartButton();
   } else {
     postRecipe();
+    document.getElementById(`${currentRecipe.id}`).style.color = 'red';
+    // updateHeartButton();
   }
-  updateHeartButton();
+
 });
 
 
@@ -157,6 +169,7 @@ function updateCurrentRecipe(recipe) {
 }
 
 function displayModal(recipe) {
+  console.log(currentRecipe);
   const modalTitle = document.querySelector('.modal-title');
   const ingredientsList = document.querySelector('.ingredients-list');
   const instructionsList = document.querySelector('.instructions-list');
@@ -171,19 +184,23 @@ function displayModal(recipe) {
   const clickedRecipeCost = calculateRecipeCost(currentRecipe, apiIngredients)
   totalCost.innerText = clickedRecipeCost;
   recipeImage.src = currentRecipe.image;
+  // heartButton.id = `${currentRecipe.id}`
+  heartButton.setAttribute('id', `${currentRecipe.id}`);
+
   recipeModal.classList.remove('hidden');
   overlay.style.display = 'block';
   
-  updateHeartButton()
+  // updateHeartButton()
 }
 
-function updateHeartButton() {
-  if (currentUser.recipesToCook.includes(currentRecipe)) {
-    heartButton.style.color = 'red';
-  } else {
-    heartButton.style.color = 'grey';
-  }
-}
+// function updateHeartButton() {
+//   console.log('isliked', isLiked);
+//   if (isLiked) {
+//     heartButton.style.color = 'grey';
+//   } else {
+//     heartButton.style.color = 'red';
+//   }
+// }
 
 function displayRecipesByTag(recipes, tag) {
   let taggedRecipes = filterByTag(recipes, tag)
