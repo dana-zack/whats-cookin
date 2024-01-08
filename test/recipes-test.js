@@ -77,3 +77,20 @@ import { ingredients, recipes, recipe1, recipe2, recipesWithStrawberries, icecre
         expect(recipe2Instructions).to.deep.equal(instructions2);
     });
   });
+
+  // ===============================================================
+  describe('rateRecipe', () => {
+    it('Should allow a user to rate a recipe', () => {
+      rateRecipe(recipe1, 8)
+      rateRecipe(recipe2, 2)
+      expect(recipe1).to.deep.equal(recipe1Rated8);
+      expect(recipe2).to.deep.equal(recipe2Rated2);
+    });
+  
+    it('Should allow a user to assign a new rating to a previously rated recipe', () => {
+      rateRecipe(recipe1, 8)
+      expect(recipe1).to.deep.equal(recipe1Rated8);
+      rateRecipe(recipe1, 5)
+      expect(recipe1).to.deep.equal(recipe1Rated5);
+    });
+  });
