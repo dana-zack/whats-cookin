@@ -305,3 +305,10 @@ h3 {
   display: none;
   z-index: 999;
 }
+
+
+label[for="tag-selector"] {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
