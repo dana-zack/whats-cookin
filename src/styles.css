@@ -239,27 +239,25 @@ h3 {
   border: 2px;
 }
 
-#heart-button {
+.heart-button, #remove-button {
   color: grey;
   font-size: x-large;
-  transition: color 0.3s ease;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
   border-radius: 20%;
+}
+
+#remove-button {
+  color: red;
 }
 
 #close-button {
   font-size: x-large;
 }
 
-#remove-button {
-  height: 35px;
-  width: 150px;
-}
-
 .close-button {
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
   border-radius: 20%;
   margin: 0 4px;
 }

@@ -48,7 +48,6 @@ export function deleteUserRecipe() {
     .then(response => {
       if (response.ok) {
         console.log("Successfully removed recipe");
-        // addFavoriteRecipe(currentUser, currentRecipe)
         return response.json()
       } else {
         console.log("status", response.status);
@@ -62,35 +61,3 @@ export function deleteUserRecipe() {
       recipeCardSection.innerHTML = `${error.message}`
     })
 }
-
-// export function deleteUserRecipe(userId, recipeId) {
-//   return fetch(`http://localhost:3001/api/v1/users/${userId}/recipes/${recipeId}`, {
-//       method: 'DELETE',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     })
-//       .then(response => {
-//         if (!response.ok) {
-//           throw new Error(`Error: ${response.status} - ${response.statusText}`);
-//         }
-//         console.log('Recipe Successfully Deleted')
-//       })
-//       .catch(error => {
-//         console.log(error)
-//       });
-//   };
-
-// // Usage example:
-// const userId = 1; // Replace with the actual user ID
-// const recipeIdToDelete = 102; // Replace with the actual recipe ID
-
-// deleteUserRecipe(userId, recipeIdToDelete)
-//   .then(responseData => {
-//     console.log(responseData.message);
-//     // Handle success message here
-//   })
-//   .catch(error => {
-//     console.error('Error deleting recipe:', error);
-//     // Handle errors here
-//   });
