@@ -94,6 +94,7 @@ allRecipesButton.addEventListener('click', (event) => {
 })
 
 favoriteRecipesButton.addEventListener('click', (event) => {
+  resultsMessage.innerText = ''
   getCurrentUsersFavRecipes();
   searchBarInput.placeholder = "Search 'favorite recipes' by name...";
   allRecipesButton.style.backgroundColor = "white";
@@ -145,6 +146,7 @@ searchBarInput.addEventListener('keydown', (event) => {
 
 tagSelectorButton.addEventListener('click', (event) => {
   if (dropDown.value === 'select tag') return
+  resultsMessage.innerText = ''
   const clickedTag = dropDown.value
   displayRecipesByTag(displayedRecipes, clickedTag)
   searchMessage.innerText = `Now displaying results for a tag inclusive of: '${dropDown.value}'`
