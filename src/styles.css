@@ -58,9 +58,12 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
 }
 
 .nav-bar-button {
+  width: 50%;
   margin: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -69,19 +72,18 @@ h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 20px;
   font-weight: 800;
-  box-shadow: 4px 4px 0 2px;
   border: 2px solid #000;
   border-radius: .7rem;
   background-color: grey;
 }
 
 .nav-bar-button:hover {
-  transform: scale(1.08);
+  transform: scale(1.03);
   cursor: pointer;
 }
 
 #all-recipes-button {
-  background-color: grey;
+  background-color: rgb(180, 180, 180);
 }
 
 #favorite-recipes-button {
@@ -115,9 +117,12 @@ h1 {
   padding: 5px;
   font-family: 'Work Sans', sans-serif;
   font-size: 15px;
-  box-shadow: 4px 4px 0 2px;
   border: 2px solid #000;
   border-radius: .7rem;
+}
+
+#tag-selector:hover {
+  cursor: pointer;
 }
 
 #tag-selector-button {
@@ -125,7 +130,6 @@ h1 {
   padding: 5px;
   font-family: 'Work Sans', sans-serif;
   font-size: 15px;
-  box-shadow: 4px 4px 0 2px;
   border: 2px solid #000;
   border-radius: .7rem;
 }

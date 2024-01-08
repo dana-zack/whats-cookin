@@ -82,7 +82,7 @@ allRecipesButton.addEventListener('click', (event) => {
   displayedRecipes = apiRecipes
   displayRecipeCards(displayedRecipes)
   searchBarInput.placeholder = "Search 'all recipes' by name..."
-  allRecipesButton.style.backgroundColor = "grey";
+  allRecipesButton.style.backgroundColor = 'rgb(180, 180, 180)';
   favoriteRecipesButton.style.backgroundColor = "white";
   removeFromFavoritesButton.classList.add('hidden')
   heartButton.classList.remove('hidden')
@@ -92,7 +92,7 @@ favoriteRecipesButton.addEventListener('click', (event) => {
   getCurrentUsersFavRecipes()
   searchBarInput.placeholder = "Search 'favorite recipes' by name..."
   allRecipesButton.style.backgroundColor = "white";
-  favoriteRecipesButton.style.backgroundColor = "grey";
+  favoriteRecipesButton.style.backgroundColor = 'rgb(180, 180, 180)';
   removeFromFavoritesButton.classList.remove('hidden')
   heartButton.classList.add('hidden')
 })
