@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:900,800,700|Work+Sans:300" rel="stylesheet">
     <meta charset="UTF-8">
@@ -44,7 +44,7 @@
       <button class="nav-bar-button" id="all-recipes-button">All Recipes</button>
       <button class="nav-bar-button" id="favorite-recipes-button">Favorite Recipes</button>
     </section>
-    <section class="main-page" id="all-recipes-section">
+    <section class="main-page" id="all-recipes-section" role="main">
       <div class="messaging-container">
         <p class="search-message"></p>
         <p class="results-message"></p>
@@ -53,7 +53,7 @@
         <!-- recipe cards will populate here -->
       </section>
     </section>
-    <section id="recipe-modal" class="modal hidden">
+    <section id="recipe-modal" class="modal hidden" aria-modal="true" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content">
       <article class="recipe-modal-section">
         <header>
           <h1 class="modal-title">Recipe Name</h1>
