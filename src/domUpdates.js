@@ -126,8 +126,10 @@ searchButton.addEventListener('click', (event) => {
 })
 
 tagSelectorButton.addEventListener('click', (event) => {
+  if (dropDown.value === 'select tag') return
   const clickedTag = dropDown.value
   displayRecipesByTag(displayedRecipes, clickedTag)
+  dropDown.value = 'select tag'
 })
 
 // Functions
