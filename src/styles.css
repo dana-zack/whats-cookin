@@ -13,13 +13,13 @@ body {
 header {
   display: flex;
   justify-content: space-between;
-  margin: 20px;
+  /* margin: 20px; */
   padding: 0px; 
 }
 
 h1 {
-  font-size: 40px;
-  padding: 5px;
+  font-size: 45px;
+  padding: 10px;
   margin: 0px;
 }
 
@@ -28,6 +28,7 @@ h1 {
   align-items: center;
   justify-content: space-evenly;
   width: 600px;
+  margin: 20px 0 0;
 }
 
 .search-input {
@@ -39,7 +40,6 @@ h1 {
 
 #search-button {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 900;
   height: 35px;
   width: 100px;
   border-radius: 8px;
@@ -98,12 +98,6 @@ h1 {
   padding: 10px;
 }
 
-.drop-down-menu-container {
-  display: flex;
-  justify-content: flex-end;
-
-}
-
 .drop-down-content {
   display: none;
   position: absolute;
@@ -117,7 +111,7 @@ h1 {
   padding: 5px;
   font-family: 'Work Sans', sans-serif;
   font-size: 15px;
-  border: 2px solid #000;
+  border: 1.5px solid #000;
   border-radius: .7rem;
 }
 
@@ -130,7 +124,7 @@ h1 {
   padding: 5px;
   font-family: 'Work Sans', sans-serif;
   font-size: 15px;
-  border: 2px solid #000;
+  border: 1.5px solid #000;
   border-radius: .7rem;
 }
 
@@ -143,6 +137,18 @@ transform: scale(1.07);
 
 .main-page {
   display: flex;
+  flex-direction: column;
+}
+
+.messaging-container {
+  height: 50px;
+}
+
+.search-message, .results-message {
+  margin: 5px 0;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
 }
 
 .recipe-card-section{
@@ -175,10 +181,6 @@ h2 {
   margin: 10px;
   text-align: center;
   height: 40px;
-}
-
-.no-results-message {
-  padding: 30px;
 }
 
 .recipe-image {
