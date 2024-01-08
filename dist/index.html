@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:900,800,700|Work+Sans:300" rel="stylesheet">
     <meta charset="UTF-8">
@@ -7,20 +7,21 @@
   </head>
   <body>
     <div id="overlay"></div>
-    <header>
+    <header role="banner">
       <h1 class="web-page-title">What's Cookin?</h1>
-      <div class="search-bar">
+      <div class="search-bar" role="navigation">
         <input type="search" class="search-input" placeholder=" Search recipes..." aria-label="Search through site recipes">
         <button id="search-button">Search</button>
       </div>
     </header>
-    <section class="nav-bar">
+    <section class="nav-bar" role="navigation">
       <button class="nav-bar-button" id="all-recipes-button">All Recipes</button>
       <button class="nav-bar-button" id="favorite-recipes-button">Favorite Recipes</button>
     </section>
     <section class="drop-down-menu">
       <div class="drop-down-menu-container">
-        <select name="tags" id="tag-selector">
+        <label for="tag-selector">Select Tag:</label>
+        <select name="tags" id="tag-selector" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="tag-selector-options">
           <option value="select tag" selected>select tag</option>
           <option value="dinner">dinner</option>
           <option value="lunch">lunch</option>
@@ -41,12 +42,12 @@
         <button class="tag-selector-button" id="tag-selector-button">Search by Tag</button>
       </div>
     </section>
-    <section class="main-page" id="all-recipes-section">
+    <section class="main-page" id="all-recipes-section" role="main">
       <section class="recipe-card-section">
         <!-- recipe cards will populate here -->
       </section>
     </section>
-    <section id="recipe-modal" class="modal hidden">
+    <section id="recipe-modal" class="modal hidden" aria-modal="true" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content">
       <article class="recipe-modal-section">
         <header>
           <h1 class="modal-title">Recipe Name</h1>
