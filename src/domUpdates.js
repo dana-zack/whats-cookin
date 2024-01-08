@@ -121,8 +121,18 @@ heartButton.addEventListener('click', (event) => {
 });
 
 searchButton.addEventListener('click', (event) => {
+  if (!searchBarInput.value) return
   displayRecipesByName(displayedRecipes, searchBarInput.value)
   searchBarInput.value = "";
+})
+
+searchBarInput.addEventListener('keydown', (event) => {
+  if (!searchBarInput.value) return
+  if (event.key === 'Enter') {
+    console.log('Enter key pressed!' );
+    displayRecipesByName(displayedRecipes, searchBarInput.value)
+    searchBarInput.value = "";
+    }
 })
 
 tagSelectorButton.addEventListener('click', (event) => {
