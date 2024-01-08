@@ -38,3 +38,26 @@ export function postRecipe() {
       recipeCardSection.innerHTML = `${error.message}`
     })
 }
+
+export function deleteUserRecipe() {
+  fetch('http://localhost:3001/api/v1/usersRecipes', {
+    method: 'DELETE',
+    headers: { 'Content-Type' : 'application/json' },
+    body: JSON.stringify({ userID: currentUser.id, recipeID: currentRecipe.id })
+  })
+    .then(response => {
+      if (response.ok) {
+        console.log("Successfully removed recipe");
+        return response.json()
+      } else {
+        console.log("status", response.status);
+        throw new Error('Unable to remove recipe')
+      }
+    })
+    .then(data => console.log(data))
+    .catch(error => {
+      console.log(error);
+      closeModal()
+      recipeCardSection.innerHTML = `${error.message}`
+    })
+}

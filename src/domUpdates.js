@@ -1,6 +1,6 @@
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions, rateRecipe } from './recipes.js';
 import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
-import { getData, postRecipe } from "./apiCalls.js";
+import { getData, postRecipe, deleteUserRecipe } from "./apiCalls.js";
 
 // Variables
 let apiRecipes;
@@ -16,14 +16,13 @@ const recipeModal = document.getElementById('recipe-modal')
 const closeButton = document.querySelector('.close-button');
 const favoriteRecipesButton = document.getElementById('favorite-recipes-button');
 const allRecipesButton = document.getElementById('all-recipes-button');
-const heartButton = document.getElementById('heart-button');
+const heartButton = document.querySelector('.heart-button');
 const searchButton = document.getElementById('search-button');
 const searchBarInput = document.querySelector('.search-input');
 const dropDown = document.getElementById('tag-selector');
 const tagSelectorButton = document.querySelector('.tag-selector-button')
 const webPageTitle = document.querySelector('.web-page-title')
 const removeFromFavoritesButton = document.getElementById('remove-button')
-const recipeImage = document.querySelector('.modal-recipe-image')
 
 // GETs
 function getCurrentUsersFavRecipes() {
@@ -99,20 +98,27 @@ favoriteRecipesButton.addEventListener('click', (event) => {
 })
 
 removeFromFavoritesButton.addEventListener('click', (event) => {
-  removeFavoriteRecipe(currentUser, currentRecipe)
-  closeModal()
-  displayRecipeCards(displayedRecipes)
+  currentRecipe.isLiked = false;
+  deleteUserRecipe(currentUser.id, currentRecipe.id);
+  removeFavoriteRecipe(currentUser, currentRecipe);
+  getCurrentUsersFavRecipes()
+  closeModal();
 })
 
 heartButton.addEventListener('click', (event) => {
-  if (currentUser.recipesToCook.includes(currentRecipe)) {
+  const matchedRecipe = currentUser.recipesToCook.find(recipe => recipe.name === currentRecipe.name);
+  if (matchedRecipe) {
+    deleteUserRecipe(currentUser.id, currentRecipe.id);
     removeFavoriteRecipe(currentUser, currentRecipe);
+    displayRecipeCards(displayedRecipes);
+    currentRecipe.isLiked = false;
+    heartButton.style.color = 'grey'
   } else {
     postRecipe();
+    currentRecipe.isLiked = true;
+    heartButton.style.color = 'red'
   }
-  updateHeartButton();
 });
-
 
 searchButton.addEventListener('click', (event) => {
   displayRecipesByName(displayedRecipes, searchBarInput.value)
@@ -173,14 +179,10 @@ function displayModal(recipe) {
   recipeImage.src = currentRecipe.image;
   recipeModal.classList.remove('hidden');
   overlay.style.display = 'block';
-  
-  updateHeartButton()
-}
-
-function updateHeartButton() {
-  if (currentUser.recipesToCook.includes(currentRecipe)) {
+  if (currentRecipe.isLiked) {
     heartButton.style.color = 'red';
   } else {
+    currentRecipe.isLiked = false;
     heartButton.style.color = 'grey';
   }
 }
