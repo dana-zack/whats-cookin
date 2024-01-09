@@ -8,11 +8,12 @@ let apiIngredients;
 let currentUser;
 let displayedRecipes;
 let currentRecipe;
+let ratings = [];
 
 // Selectors
 const recipeCardSection = document.querySelector('.recipe-card-section');
-const overlay = document.getElementById('overlay')
-const recipeModal = document.getElementById('recipe-modal')
+const overlay = document.getElementById('overlay');
+const recipeModal = document.getElementById('recipe-modal');
 const closeButton = document.querySelector('.close-button');
 const favoriteRecipesButton = document.getElementById('favorite-recipes-button');
 const allRecipesButton = document.getElementById('all-recipes-button');
@@ -25,6 +26,10 @@ const webPageTitle = document.querySelector('.web-page-title')
 const searchMessage = document.querySelector('.search-message')
 const resultsMessage = document.querySelector('.results-message')
 const removeFromFavoritesButton = document.getElementById('remove-button')
+const recipeImage = document.querySelector('.modal-recipe-image');
+const currentRecipeID = document.querySelector("#current-recipe-id")
+const stars = document.querySelectorAll('.ratings span');
+
 
 // GETs
 function getCurrentUsersFavRecipes() {
@@ -153,7 +158,38 @@ tagSelectorButton.addEventListener('click', (event) => {
   dropDown.value = 'select tag'
 })
 
+stars.forEach(star => star.addEventListener('click', () => {
+  let rating = star.id
+  let foundRating = ratings.find(rating => rating.recipeID === currentRecipe.id)
+  
+  if(foundRating) {
+    stars.forEach(star => star.removeAttribute('clicked'))
+    star.setAttribute('clicked', 'true')
+    foundRating.rating = rating
+  } else {
+    star.setAttribute('clicked', 'true')
+    ratings.push({ recipeID: currentRecipe.id, rating })
+  }
+  
+}))
+
 // Functions
+function displayStars() {
+  const foundRecipeID = ratings.find(rating => rating.recipeID === currentRecipe.id)?.recipeID
+  const foundRating = ratings.find(rating => rating.recipeID === currentRecipe.id)?.rating
+  
+  console.log(currentRecipeID.id);
+  console.log(foundRecipeID);
+
+  stars.forEach(star => star.removeAttribute('clicked'))
+  
+  if (foundRecipeID === Number(currentRecipeID.id)) {
+    const star = document.getElementById(foundRating)
+    console.log(star);
+    star.setAttribute('clicked', 'true')
+  }
+}
+
 function closeModal(){
   recipeModal.classList.add('hidden');
   overlay.style.display = 'none';
@@ -169,7 +205,6 @@ function displayRecipeCards(recipes) {
       <article class="recipe-card">
         <h2 class="recipe-title">${recipe.name}</h2> 
         <img class="recipe-image" src="${recipe.image}" alt="image of ${recipe.name}">
-        <p class="recipe-rating">Rating: none</p>
       </article>`
     })
   }
@@ -186,12 +221,14 @@ function updateCurrentRecipe(recipe) {
 }
 
 function displayModal(recipe) {
+  updateCurrentRecipe(recipe)
+  currentRecipeID.id = currentRecipe.id
+  displayStars()
   const modalTitle = document.querySelector('.modal-title');
   const ingredientsList = document.querySelector('.ingredients-list');
   const instructionsList = document.querySelector('.instructions-list');
   const totalCost = document.querySelector('.total-cost');
   const recipeImage = document.querySelector('.modal-recipe-image')
-  updateCurrentRecipe(recipe)
   modalTitle.innerText = currentRecipe.name;
   const clickedRecipeIngredients = listRecipeIngredients(currentRecipe, apiIngredients).join('<br>')
   ingredientsList.innerHTML = clickedRecipeIngredients
