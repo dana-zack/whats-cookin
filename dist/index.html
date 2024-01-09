@@ -7,43 +7,49 @@
   </head>
   <body>
     <div id="overlay"></div>
-    <header role="banner">
-      <h1 class="web-page-title">What's Cookin?</h1>
-      <div class="search-bar" role="navigation">
-        <input type="search" class="search-input" placeholder=" Search recipes..." aria-label="Search through site recipes">
-        <button id="search-button">Search</button>
-      </div>
+    <header>
+      <section class="left-header">
+        <h1 class="web-page-title">What's Cookin?</h1>
+        <p class="greeting"></p>
+      </section>
+      <section class="right-header">
+        <section class="search-bar">
+          <input type="search" class="search-input" placeholder=" Search recipes..." aria-label="Search through site recipes">
+          <button id="search-button">Search</button>
+        </section>
+        <section class="drop-down-menu">
+            <select name="tags" id="tag-selector">
+              <option value="select tag" selected>select tag</option>
+              <option value="dinner">dinner</option>
+              <option value="lunch">lunch</option>
+              <option value="snack">snack</option>
+              <option value="starter">starter</option>
+              <option value="main dish">main dish</option>
+              <option value="appetizer">appetizer</option>
+              <option value="hor d'oeuvre">hor d'oeuvre</option>
+              <option value="antipasto">antipasto</option>
+              <option value="side dish">side dish</option>
+              <option value="main course">main course</option>
+              <option value="condiment">condiment</option>
+              <option value="spread">spread</option>
+              <option value="dip">dip</option>
+              <option value="salad">salad</option>
+              <option value="sauce">sauce</option>
+            </select>
+            <button class="tag-selector-button" id="tag-selector-button">Search by Tag</button>
+        </section>
+      </section>
     </header>
-    <section class="nav-bar" role="navigation">
+    <section class="nav-bar">
       <button class="nav-bar-button" id="all-recipes-button">All Recipes</button>
       <button class="nav-bar-button" id="favorite-recipes-button">Favorite Recipes</button>
     </section>
-    <section class="drop-down-menu">
-      <div class="drop-down-menu-container">
-        <label for="tag-selector">Select Tag:</label>
-        <select name="tags" id="tag-selector" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="tag-selector-options">
-          <option value="select tag" selected>select tag</option>
-          <option value="dinner">dinner</option>
-          <option value="lunch">lunch</option>
-          <option value="snack">snack</option>
-          <option value="starter">starter</option>
-          <option value="main dish">main dish</option>
-          <option value="appetizer">appetizer</option>
-          <option value="hor d'oeuvre">hor d'oeuvre</option>
-          <option value="antipasto">antipasto</option>
-          <option value="side dish">side dish</option>
-          <option value="main course">main course</option>
-          <option value="condiment">condiment</option>
-          <option value="spread">spread</option>
-          <option value="dip">dip</option>
-          <option value="salad">salad</option>
-          <option value="sauce">sauce</option>
-        </select>
-        <button class="tag-selector-button" id="tag-selector-button">Search by Tag</button>
-      </div>
-    </section>
     <section class="main-page" id="all-recipes-section" role="main">
-      <section class="recipe-card-section">
+      <div class="messaging-container">
+        <p class="search-message"></p>
+        <p class="results-message"></p>
+      </div>
+        <section class="recipe-card-section">
         <!-- recipe cards will populate here -->
       </section>
     </section>
