@@ -51,3 +51,4 @@ Laura Long: https://github.com/lalonggone
 * Dana Zack: A win for me was improving my debugging skills when we struggled to repair the heart (favorite) button. One challenge for me was learning how to incorporate & understand API error messages (throw new Error for 400s vs. .catch for 500s) within the code.
 * Ricky Tran: mproving logic building skills with the star rating system. Styling the hover effects for the stars was a challenge for me but also a win once it was working and looked good! 
 
+
