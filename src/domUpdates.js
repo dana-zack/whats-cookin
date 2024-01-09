@@ -1,5 +1,5 @@
 import { filterByTag, filterByName, listRecipeIngredients, calculateRecipeCost, getInstructions, rateRecipe } from './recipes.js';
-import { addFavoriteRecipe, removeFavoriteRecipe, getRandomUser } from './users.js';
+import { removeFavoriteRecipe, getRandomUser } from './users.js';
 import { getData, postRecipe, deleteUserRecipe } from "./apiCalls.js";
 
 // Variables
@@ -21,13 +21,13 @@ const heartButton = document.querySelector('.heart-button');
 const searchButton = document.getElementById('search-button');
 const searchBarInput = document.querySelector('.search-input');
 const dropDown = document.getElementById('tag-selector');
-const tagSelectorButton = document.querySelector('.tag-selector-button')
-const webPageTitle = document.querySelector('.web-page-title')
-const searchMessage = document.querySelector('.search-message')
-const resultsMessage = document.querySelector('.results-message')
-const removeFromFavoritesButton = document.getElementById('remove-button')
+const tagSelectorButton = document.querySelector('.tag-selector-button');
+const webPageTitle = document.querySelector('.web-page-title');
+const searchMessage = document.querySelector('.search-message');
+const resultsMessage = document.querySelector('.results-message');
+const removeFromFavoritesButton = document.getElementById('remove-button');
 const recipeImage = document.querySelector('.modal-recipe-image');
-const currentRecipeID = document.querySelector("#current-recipe-id")
+const currentRecipeID = document.querySelector("#current-recipe-id");
 const stars = document.querySelectorAll('.ratings span');
 
 
@@ -70,10 +70,10 @@ function assignIngredients() {
 
 // Event listeners
 window.addEventListener('load', () => {
-  assignRecipes()
-	assignCurrentUser()
-	assignIngredients()
-	searchBarInput.placeholder = "Search 'all recipes' by name"
+  assignRecipes();
+	assignCurrentUser();
+	assignIngredients();
+	searchBarInput.placeholder = "Search 'all recipes' by name";
 })
 
 recipeCardSection.addEventListener('click', (event) => {
@@ -101,12 +101,11 @@ allRecipesButton.addEventListener('click', (event) => {
   removeFromFavoritesButton.classList.add('hidden');
   heartButton.classList.remove('hidden');
   searchMessage.innerText = '';
-  resultsMessage.innerText = ''
-
+  resultsMessage.innerText = '';
 })
 
 favoriteRecipesButton.addEventListener('click', (event) => {
-  resultsMessage.innerText = ''
+  resultsMessage.innerText = '';
   getCurrentUsersFavRecipes();
   searchBarInput.placeholder = "Search 'favorite recipes' by name...";
   allRecipesButton.style.backgroundColor = "white";
@@ -142,62 +141,54 @@ heartButton.addEventListener('click', (event) => {
 searchButton.addEventListener('click', (event) => {
   if (!searchBarInput.value) return;
   displayRecipesByName(displayedRecipes, searchBarInput.value);
-  searchMessage.innerText = `Now displaying results for a name inclusive of: '${searchBarInput.value}'`
+  searchMessage.innerText = `Now displaying results for a name inclusive of: '${searchBarInput.value}'`;
   searchBarInput.value = "";
 })
 
 searchBarInput.addEventListener('keydown', (event) => {
   if (!searchBarInput.value) return
   if (event.key === 'Enter') {
-    console.log('Enter key pressed!' );
-    displayRecipesByName(displayedRecipes, searchBarInput.value)
-    searchMessage.innerText = `Now displaying results for a name inclusive of: '${searchBarInput.value}'`
+    displayRecipesByName(displayedRecipes, searchBarInput.value);
+    searchMessage.innerText = `Now displaying results for a name inclusive of: '${searchBarInput.value}'`;
     searchBarInput.value = "";
   }
 })
 
 tagSelectorButton.addEventListener('click', (event) => {
-  if (dropDown.value === 'select tag') return
-  resultsMessage.innerText = ''
-  const clickedTag = dropDown.value
-  displayRecipesByTag(displayedRecipes, clickedTag)
-  searchMessage.innerText = `Now displaying results for a tag inclusive of: '${dropDown.value}'`
-  dropDown.value = 'select tag'
+  if (dropDown.value === 'select tag') return;
+  resultsMessage.innerText = '';
+  const clickedTag = dropDown.value;
+  displayRecipesByTag(displayedRecipes, clickedTag);
+  searchMessage.innerText = `Now displaying results for a tag inclusive of: '${dropDown.value}'`;
+  dropDown.value = 'select tag';
 })
 
 stars.forEach(star => star.addEventListener('click', () => {
-  let rating = star.id
-  let foundRating = ratings.find(rating => rating.recipeID === currentRecipe.id)
-  
+  let rating = star.id;
+  let foundRating = ratings.find(rating => rating.recipeID === currentRecipe.id);
   if(foundRating) {
-    stars.forEach(star => star.removeAttribute('clicked'))
-    star.setAttribute('clicked', 'true')
-    foundRating.rating = rating
+    stars.forEach(star => star.removeAttribute('clicked'));
+    star.setAttribute('clicked', 'true');
+    foundRating.rating = rating;
   } else {
-    star.setAttribute('clicked', 'true')
-    ratings.push({ recipeID: currentRecipe.id, rating })
+    star.setAttribute('clicked', 'true');
+    ratings.push({ recipeID: currentRecipe.id, rating });
   }
-  
 }))
 
 // Functions
 function displayStars() {
-  const foundRecipeID = ratings.find(rating => rating.recipeID === currentRecipe.id)?.recipeID
-  const foundRating = ratings.find(rating => rating.recipeID === currentRecipe.id)?.rating
-  
-  console.log(currentRecipeID.id);
-  console.log(foundRecipeID);
-
-  stars.forEach(star => star.removeAttribute('clicked'))
-  
+  const foundRecipeID = ratings.find(rating => rating.recipeID === currentRecipe.id)?.recipeID;
+  const foundRating = ratings.find(rating => rating.recipeID === currentRecipe.id)?.rating;
+  stars.forEach(star => star.removeAttribute('clicked'));
   if (foundRecipeID === Number(currentRecipeID.id)) {
-    const star = document.getElementById(foundRating)
+    const star = document.getElementById(foundRating);
     console.log(star);
-    star.setAttribute('clicked', 'true')
+    star.setAttribute('clicked', 'true');
   }
 }
 
-function closeModal(){
+function closeModal() {
   recipeModal.classList.add('hidden');
   overlay.style.display = 'none';
 }
@@ -205,15 +196,15 @@ function closeModal(){
 function displayRecipeCards(recipes) {
   recipeCardSection.innerHTML = '';
   if (recipes.length === 0) {
-    resultsMessage.innerText = 'Sorry, no recipes found!'
+    resultsMessage.innerText = 'Sorry, no recipes found!';
   } else {
     recipes.forEach(recipe => {
-      recipeCardSection.innerHTML  += `
+      recipeCardSection.innerHTML += `
       <article tabindex="0" class="recipe-card">
         <h2 class="recipe-title">${recipe.name}</h2> 
         <img class="recipe-image" src="${recipe.image}" alt="image of ${recipe.name}">
-      </article>`
-    })
+      </article>`;
+    });
   }
 }
 
@@ -228,20 +219,20 @@ function updateCurrentRecipe(recipe) {
 }
 
 function displayModal(recipe) {
-  updateCurrentRecipe(recipe)
-  currentRecipeID.id = currentRecipe.id
-  displayStars()
+  updateCurrentRecipe(recipe);
+  currentRecipeID.id = currentRecipe.id;
+  displayStars();
   const modalTitle = document.querySelector('.modal-title');
   const ingredientsList = document.querySelector('.ingredients-list');
   const instructionsList = document.querySelector('.instructions-list');
   const totalCost = document.querySelector('.total-cost');
   const recipeImage = document.querySelector('.modal-recipe-image')
   modalTitle.innerText = currentRecipe.name;
-  const clickedRecipeIngredients = listRecipeIngredients(currentRecipe, apiIngredients).join('<br>')
-  ingredientsList.innerHTML = clickedRecipeIngredients
+  const clickedRecipeIngredients = listRecipeIngredients(currentRecipe, apiIngredients).join('<br>');
+  ingredientsList.innerHTML = clickedRecipeIngredients;
   const clickedRecipeInstructions = getInstructions(currentRecipe);
   instructionsList.innerHTML = clickedRecipeInstructions;
-  const clickedRecipeCost = calculateRecipeCost(currentRecipe, apiIngredients)
+  const clickedRecipeCost = calculateRecipeCost(currentRecipe, apiIngredients);
   totalCost.innerText = clickedRecipeCost;
   recipeImage.src = currentRecipe.image;
   recipeModal.classList.remove('hidden');
@@ -255,13 +246,13 @@ function displayModal(recipe) {
 }
 
 function displayRecipesByTag(recipes, tag) {
-  let taggedRecipes = filterByTag(recipes, tag)
-  displayRecipeCards(taggedRecipes)
+  let taggedRecipes = filterByTag(recipes, tag);
+  displayRecipeCards(taggedRecipes);
 }
 
 function displayRecipesByName(recipes, name) {
-  let namedRecipes = filterByName(recipes, name)
-  displayRecipeCards(namedRecipes)
+  let namedRecipes = filterByName(recipes, name);
+  displayRecipeCards(namedRecipes);
 }
 
 export {
