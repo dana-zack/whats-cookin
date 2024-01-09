@@ -7,18 +7,19 @@
   </head>
   <body>
     <div id="overlay"></div>
-    <header>
+    <header role="banner">
       <section class="left-header">
         <h1 class="web-page-title">What's Cookin?</h1>
         <p class="greeting"></p>
       </section>
       <section class="right-header">
-        <section class="search-bar">
+        <section class="search-bar" role="search">
           <input type="search" class="search-input" placeholder=" Search recipes..." aria-label="Search through site recipes">
           <button id="search-button">Search</button>
         </section>
+        <label for="tag-selector">Select Tag:</label>
         <section class="drop-down-menu">
-            <select name="tags" id="tag-selector">
+            <select name="tags" id="tag-selector" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="tag-selector-options">
               <option value="select tag" selected>select tag</option>
               <option value="dinner">dinner</option>
               <option value="lunch">lunch</option>
@@ -40,7 +41,7 @@
         </section>
       </section>
     </header>
-    <section class="nav-bar">
+    <section class="nav-bar" role="navigation">
       <button class="nav-bar-button" id="all-recipes-button">All Recipes</button>
       <button class="nav-bar-button" id="favorite-recipes-button">Favorite Recipes</button>
     </section>
@@ -73,12 +74,12 @@
 
 
             <section class="ratings-wrapper">
-              <div id="current-recipe-id" class="ratings">
-                <span id="5">&#9733</span>
-                <span id="4">&#9733</span>
-                <span id="3">&#9733</span>
-                <span id="2">&#9733</span>
-                <span id="1">&#9733</span>
+              <div id="current-recipe-id" class="ratings" role="img" aria-label="Rating: 5 out of 5">
+                <span aria-hidden="true">&#9733;</span>
+                <span aria-hidden="true">&#9733;</span>
+                <span aria-hidden="true">&#9733;</span>
+                <span aria-hidden="true">&#9733;</span>
+                <span aria-hidden="true">&#9733;</span>
               </div>
             </section>
 
