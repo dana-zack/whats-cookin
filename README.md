@@ -4,8 +4,6 @@
 [//]: <> (Briefly describe what you built and its features. What problem is the app solving? How does this application solve that problem?)
 We built a cookbook application. It allows a user to view all available recipes, as well as favorite recipes to then view on a separate page. It also allows a user to search recipes by name and filter recipes by tag, either in 'all recipes' or in 'favorite recipes.' Finally, it allows users to rate their recipes using a 5 star system.
 
-Deployed repo: https://dana-zack.github.io/whats-cookin/
-
 ### Installation Instructions:
 [//]: <> (What steps does a person have to take to get your app cloned down and running?)
 Clone this repo, run npm install, then run npm start. <br>
@@ -17,7 +15,6 @@ Backend repo: https://github.com/turingschool-examples/whats-cookin-api
 Then enjoy!
 
 ### Preview of App:
-[//]: <> (Provide ONE gif or screenshot of your application - choose the "coolest" piece of functionality to show off.)
 
 ![Alt text](<src/images/Screenshot 2024-01-08 at 6.21.30 PM.png>)
 ![Alt text](<src/images/Screenshot 2024-01-08 at 6.21.51 PM.png>)
