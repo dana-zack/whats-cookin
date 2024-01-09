@@ -49,6 +49,6 @@ Laura Long: https://github.com/lalonggone
 [//]: <> (What are 2-3 wins you have from this project? What were some challenges you faced - and how did you get over them?)
 * Laura: I applied a lot of aria accessibility in this project and getting the lighthouse test to 100% was a good feeling. This part of the project was pretty hairy for me, there were a few times I felt like I had no idea what was going on and had to spend time catching up with network requests. I'm happy our group was compatible! Teamwork makes the dreak work.
 * Dana Zack: A win for me was improving my debugging skills when we struggled to repair the heart (favorite) button. One challenge for me was learning how to incorporate & understand API error messages (throw new Error for 400s vs. .catch for 500s) within the code.
-* Ricky Tran: mproving logic building skills with the star rating system. Styling the hover effects for the stars was a challenge for me but also a win once it was working and looked good! 
+* Ricky Tran: mproving logic building skills with the star rating system. Styling the hover effects for the stars was a challenge for me but also a win once it was working and looked good!!!!
 
 
