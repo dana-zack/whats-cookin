@@ -81,6 +81,13 @@ recipeCardSection.addEventListener('click', (event) => {
   displayModal(selectedRecipe);
 });
 
+recipeCardSection.addEventListener('keydown', (event) => {
+  const selectedRecipe = event.target.closest('article');
+  if (event.key === 'Enter') {
+    displayModal(selectedRecipe); 
+  }
+});
+
 closeButton.addEventListener('click', (event) => {
   closeModal();
 })
@@ -202,7 +209,7 @@ function displayRecipeCards(recipes) {
   } else {
     recipes.forEach(recipe => {
       recipeCardSection.innerHTML  += `
-      <article class="recipe-card">
+      <article tabindex="0" class="recipe-card">
         <h2 class="recipe-title">${recipe.name}</h2> 
         <img class="recipe-image" src="${recipe.image}" alt="image of ${recipe.name}">
       </article>`
